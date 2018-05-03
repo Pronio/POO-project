@@ -2,6 +2,7 @@ package main;
 import map.Map;
 import map.Obstacles;
 import map.SpecialCostZones;
+import map.IMap;
 
 public class Main {
 
@@ -19,6 +20,44 @@ public class Main {
 		obs[4] = new Obstacles(3,3);
 		
 		Map m = new Map(10,5,obs,spz,1,1);
+		
+		IMap node1,node2;
+		
+		node1 = m.start.nextNodeRandom();
+		
+		System.out.println(node1);
+		
+		node1 = node1.nextNodeRandom();
+				
+		System.out.println(node1);
+		
+		node1 = node1.nextNodeRandom();
+		
+		System.out.println(node1);
+		
+		node1 = node1.nextNodeRandom();
+		
+		System.out.println(node1);
+		
+		System.out.println();
+		
+		
+		node2 = m.start.nextNodeRandom();
+		
+		System.out.println(node2);
+		
+		node2 = node2.nextNodeRandom();
+		
+		System.out.println(node2);
+		
+		node2 = node2.nextNodeRandom();
+		
+		System.out.println(node2);
+		
+		node2 = node2.nextNodeRandom();
+		
+		System.out.println(node2);
+		
 		return;
 	}
 

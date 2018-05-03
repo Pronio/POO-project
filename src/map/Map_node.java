@@ -1,5 +1,7 @@
 package map;
 
+import java.util.Random;
+
 public class Map_node implements IMap {
 	
 	final int x,y;
@@ -12,19 +14,40 @@ public class Map_node implements IMap {
 	}
 	
 	@Override
-	public IMap nextNodeRandom(IMap node) {
-		// TODO Auto-generated method stub
-		return null;
+	public IMap nextNodeRandom() {
+		
+		int n_next = 0;
+		Integer[] active = new Integer[4];
+		Random ran = new Random();
+		
+		for(int i=0; i<4; i++) {
+			if(next[i]!=null) {
+				active[n_next] = i;
+				n_next++;
+			}
+		}
+		
+		if(n_next == 0) {
+			return this;
+		}else {
+			return next[active[ran.nextInt(n_next)]];
+		}
+
 	}
 
 	@Override
-	public int getPosX(IMap node) {
+	public int getPosX() {
 		return x;
 	}
 
 	@Override
-	public int getPosY(IMap node) {
+	public int getPosY() {
 		return y;
+	}
+
+	@Override
+	public String toString() {
+		return "(" + x + "," + y + ")";
 	}
 
 }
