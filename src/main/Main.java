@@ -1,29 +1,80 @@
 package main;
+import map.IMap;
 import map.Map;
 import map.Obstacles;
 import map.SpecialCostZones;
-import map.IMap;
+import simulation.Simulation;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.Arrays;
+
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.parsers.SAXParser;
+import javax.xml.parsers.SAXParserFactory;
+
+import org.xml.sax.SAXException;
 
 public class Main {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception{
 		
-		SpecialCostZones[] spz= new SpecialCostZones[3];
-		spz[0] = new SpecialCostZones(1,1,2,2,3);
-		spz[1] = new SpecialCostZones(8,3,4,2,2);
-		spz[2] = new SpecialCostZones(1,4,4,2,4);
-		Obstacles[] obs = new Obstacles[5];
-		obs[0] = new Obstacles(10,5);
-		obs[1] = new Obstacles(4,2);
-		obs[2] = new Obstacles(2,3);
-		obs[3] = new Obstacles(2,5);
-		obs[4] = new Obstacles(3,3);
-		
-		Map m = new Map(10,5,obs,spz,1,1);
-		
-		IMap node1,node2;
-		
-		node1 = m.start.nextNodeRandom();
+		//Builds a SAX parser factory
+		SAXParserFactory fact = SAXParserFactory.newInstance();
+		//Checks the validity of the document against the DTD 
+	    fact.setValidating(true); 
+	    //Objects to store the XML file info
+	    Simulation sim ;
+	    Map map = null;  
+	    SpecialCostZones[] spcost = null;
+	    Obstacles[] obs = null; 
+	    
+	    try{
+	    	SAXParser saxParser = fact.newSAXParser();
+		    //Parse the XML document to this handler
+		    SimHandler handler = new SimHandler(); 
+		    saxParser.parse(new File("src/data.xml"), handler);
+		    //Getting the objects stored in the parser handler 
+		    System.out.println("---------------------------");
+		    System.out.println("----------- MAP -----------"); 
+		    System.out.println("---------------------------");	
+		    sim = new Simulation(handler.finalinst, handler.initpop, handler.maxpop, handler.comfortsens);
+		    map = new Map(handler.colsnb, handler.rowsnb, handler.getObs(), handler.getSpcost(), handler.xin, handler.yin);
+		    
+		    //Control prints
+		    System.out.println("---------------------------");
+		    System.out.println("------- PARSER DATA -------"); 
+		    System.out.println("---------------------------");
+		    System.out.println("Simulation: "+sim.toString()); 
+		    System.out.println("Spetial Cost Zones: "+ Arrays.deepToString(spcost));
+		    System.out.println("Obstacles: "+ Arrays.deepToString(obs));
+		    System.out.println("Death param = "+handler.dparam);
+		    System.out.println("Reproduction param = "+handler.rparam);
+		    System.out.println("Move param = "+handler.mparam);
+	    } 
+	    catch(IOException e) {
+	    	System.err.println("IO error");
+	    	System.exit(1);
+	    } 
+	    catch(SAXException e) {
+	    	System.err.println("Parser error");
+	    	System.exit(1);
+	    } 
+	    catch(ParserConfigurationException e) {
+	    	System.err.println("Parser configuration error");
+	    	System.exit(1);
+	    } 
+	    catch(IndexOutOfBoundsException e) {
+	    	System.err.println("Dimensions error");
+	    	System.exit(1); 
+	    }
+	    
+	    IMap node1,node2;
+	    
+	    System.out.println("---------------------------");
+	    System.out.println("---------- MOVES ----------"); 
+	    System.out.println("---------------------------");		
+		node1 = map.start.nextNodeRandom();
 		
 		System.out.println(node1);
 		
@@ -42,7 +93,7 @@ public class Main {
 		System.out.println();
 		
 		
-		node2 = m.start.nextNodeRandom();
+		node2 = map.start.nextNodeRandom();
 		
 		System.out.println(node2);
 		
@@ -58,7 +109,9 @@ public class Main {
 		
 		System.out.println(node2);
 		
-		return;
+		System.out.println("---------------------------");
+		System.out.println("---------------------------");
+		
 	}
-
+	
 }
