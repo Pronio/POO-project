@@ -1,25 +1,33 @@
 package simulation;
 
-public class Individual {
-	boolean death;
-	int rparam, dparam, mparam; 
-	
+public class Individual implements IIndividual{
+	private boolean death;
+	private int cost, length; 
+
 
 	public Individual(boolean death) {
 		super();
-		this.death = death;
+		this.setDeath(death);
 	}
 	
-	double Comfort() {
+	public double Comfort() {
 		return 0.0; 
 	}
-	void kill(){
+	public void kill(){
 	}
 	
-	void move() { 
+	public void move() { 
 	}
 	
-	void reproduction() {
+	public void reproduction() {
+	}
+
+	public boolean getDeath() {
+		return death;
+	}
+
+	public void setDeath(boolean death) {
+		this.death = death;
 	}
 	
 	
