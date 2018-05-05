@@ -6,19 +6,18 @@ import simulation.Simulation;
 public class Observation extends Event_Simulation{
 		 
 	int num;  
+	
 	//Number of observation that we want to see in the simulation time
 	public static final int NOBS = 20;
 	
 	//Constructor of the first observation event
-	public Observation(Simulation sim) {
-		this.sim = sim; 
+	public Observation(Simulation sim){
+		super(sim.getTmax()/NOBS, sim);  
 		this.num = 1; 
-		this.time = this.sim.getTmax()/NOBS; 
 	}
 	//Constructor of a general observation event
 	public Observation(Simulation sim, double time, int num) {
-		this.sim = sim; 
-		this.time = time; 
+		super(time, sim);
 		this.num = num; 
 	}
 	
@@ -39,6 +38,6 @@ public class Observation extends Event_Simulation{
 			//Doesn't return a new observation event to add to the PEC
 			return null; 
 		}
-	}	
+	}
 
 }

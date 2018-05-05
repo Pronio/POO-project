@@ -10,4 +10,11 @@ public final int xinitial, yinitial, xfinal, yfinal, cost;
 		yfinal = yf;
 		cost = c;
 	}
+
+	@Override
+	public String toString() {			
+		return "Initial: ("+xinitial+", "+yinitial+") Final: ("+xfinal+", "+yfinal+") Cost: "+cost;
+	}
+	
+
 }

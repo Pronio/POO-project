@@ -1,12 +1,25 @@
 package simulation;
 
 public class Simulation {
-	int finalinst, initpop, maxpop, comfortsens, finalpop;
+	int finalinst, initpop, maxpop, comfortsens;
 	int rparam, mparam, dparam; 
 	double tmax; 
 	
 	public Simulation(){
 		super();
+	}
+	
+	public Simulation(int finalinst, int initpop, int maxpop, int comfortsens, int rparam, int mparam,
+			int dparam, double tmax) {
+		super();
+		this.finalinst = finalinst;
+		this.initpop = initpop;
+		this.maxpop = maxpop;
+		this.comfortsens = comfortsens;
+		this.rparam = rparam;
+		this.mparam = mparam;
+		this.dparam = dparam;
+		this.tmax = tmax;
 	}
 	
 	public double getTmax(){
@@ -37,16 +50,9 @@ public class Simulation {
 		this.dparam = dparam;
 	}
 
-	public Simulation(int finalinst, int initpop, int maxpop, int comfortsens) {
-		this.finalinst = finalinst;
-		this.initpop = initpop;
-		this.maxpop = maxpop;
-		this.comfortsens = comfortsens;
-	}
-
 	@Override
 	public String toString() {
-		return "finalinst: "+finalinst+" inipop: "+initpop+" maxpop: "+maxpop+" comfortsens: "+comfortsens;
+		return "finalinst: "+finalinst+" inipop: "+initpop+" maxpop: "+maxpop+" comfortsens: "+comfortsens+" dparam: "+dparam+" rparam: "+rparam+" mparam: "+mparam;
 	}
 
 	public void stats() {

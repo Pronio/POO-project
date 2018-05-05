@@ -2,8 +2,17 @@ package simulation;
 
 public class Individual implements IIndividual{
 	private boolean death;
+	private double comfort; 
 	private int cost, length; 
 
+	
+	public double getComfort() {
+		return comfort;
+	}
+
+	public void setComfort(double comfort) {
+		this.comfort = comfort;
+	}
 
 	public Individual(boolean death) {
 		super();
@@ -11,7 +20,7 @@ public class Individual implements IIndividual{
 	}
 	
 	public double Comfort() {
-		return 0.0; 
+		return this.comfort; 
 	}
 	public void kill(){
 	}

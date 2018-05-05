@@ -1,10 +1,13 @@
 package event;
-import pec.IEvent; 
+import pec.Event; 
 import simulation.Simulation;
 
-public abstract class Event_Simulation implements IEvent{
-	
-	double time;
+public abstract class Event_Simulation extends Event{
+
 	Simulation sim;
-		
+
+	public Event_Simulation(double time, Simulation sim) {
+		super(time);
+		this.sim = sim;
+	}	
 }

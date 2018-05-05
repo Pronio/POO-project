@@ -1,9 +1,8 @@
 package main;
-import map.IMap;
-import map.Map;
-import map.Obstacles;
-import map.SpecialCostZones;
-import simulation.Simulation;
+import map.*; 
+import simulation.*;
+import pec.*; 
+import event.*; 
 
 import java.io.File;
 import java.io.IOException;
@@ -24,10 +23,12 @@ public class Main {
 		//Checks the validity of the document against the DTD 
 	    fact.setValidating(true); 
 	    //Objects to store the XML file info
-	    Simulation sim ;
+	    Simulation sim = null ;
 	    Map map = null;  
 	    SpecialCostZones[] spcost = null;
-	    Obstacles[] obs = null; 
+	    Obstacles[] obs = null;
+	    
+	    PEC pec = new PEC(); 
 	    
 	    try{
 	    	SAXParser saxParser = fact.newSAXParser();
@@ -38,19 +39,18 @@ public class Main {
 		    System.out.println("---------------------------");
 		    System.out.println("----------- MAP -----------"); 
 		    System.out.println("---------------------------");	
-		    sim = new Simulation(handler.finalinst, handler.initpop, handler.maxpop, handler.comfortsens);
+		    sim = new Simulation(handler.finalinst, handler.initpop, handler.maxpop, handler.comfortsens, handler.rparam, handler.mparam, handler.dparam, handler.finalinst);
 		    map = new Map(handler.colsnb, handler.rowsnb, handler.getObs(), handler.getSpcost(), handler.xin, handler.yin);
-		    
 		    //Control prints
 		    System.out.println("---------------------------");
 		    System.out.println("------- PARSER DATA -------"); 
 		    System.out.println("---------------------------");
 		    System.out.println("Simulation: "+sim.toString()); 
-		    System.out.println("Spetial Cost Zones: "+ Arrays.deepToString(spcost));
-		    System.out.println("Obstacles: "+ Arrays.deepToString(obs));
-		    System.out.println("Death param = "+handler.dparam);
-		    System.out.println("Reproduction param = "+handler.rparam);
-		    System.out.println("Move param = "+handler.mparam);
+		    System.out.println("Spetial Cost Zones: "+ Arrays.deepToString(handler.getSpcost()));
+		    System.out.println("Obstacles: "+ Arrays.deepToString(handler.getObs()));
+		    System.out.println("Death param = "+sim.getDparam());
+		    System.out.println("Reproduction param = "+sim.getRparam());
+		    System.out.println("Move param = "+sim.getMparam());
 		    
 	    }catch(IOException e) {
 	    	System.err.println("IO error");
@@ -92,6 +92,20 @@ public class Main {
 		System.out.println("---------------------------");
 		System.out.println("---------------------------");
 		
+		Individual I = new Individual(false); 
+		I.setComfort(0.4);
+	    Death d = new Death(sim, I); 
+		Reproduction r = new Reproduction(sim, I); 
+		Move m = new Move(sim, I); 
+		IEvent e = null; 
+		pec.Add(d);
+		pec.Add(m);
+		pec.Add(r); 
+		System.out.println("Events:"); 
+		System.out.println(d.toString());
+		System.out.println(m.toString());
+		System.out.println(r.toString());
+		for(e = pec.Remove(); e != null; e.toString()); 
+		System.exit(-1);
 	}
-	
 }
