@@ -69,46 +69,19 @@ public class Main {
 	    	System.exit(1); 
 	    }
 	    
-	    IMap node1,node2;
+	    IMap node;
 	    
 	    System.out.println("---------------------------");
 	    System.out.println("---------- MOVES ----------"); 
 	    System.out.println("---------------------------");		
-		node1 = map.start.nextNodeRandom();
+		node = map.start.nextNodeRandom();
 		
-		System.out.println(node1);
+		System.out.println(node);
 		
-		node1 = node1.nextNodeRandom();
-				
-		System.out.println(node1);
-		
-		node1 = node1.nextNodeRandom();
-		
-		System.out.println(node1);
-		
-		node1 = node1.nextNodeRandom();
-		
-		System.out.println(node1);
-		
-		System.out.println();
-		
-		
-		node2 = map.start.nextNodeRandom();
-		
-		System.out.println(node2);
-		
-		node2 = node2.nextNodeRandom();
-		
-		System.out.println(node2);
-		
-		node2 = node2.nextNodeRandom();
-		
-		System.out.println(node2);
-		
-		node2 = node2.nextNodeRandom();
-		
-		System.out.println(node2);
-		
+		for (int i = 0; i<100; i++) {
+			node = node.nextNodeRandom(); 
+			System.out.println(node);
+		}		
 		System.out.println("---------------------------");
 		System.out.println("---------------------------");
 		

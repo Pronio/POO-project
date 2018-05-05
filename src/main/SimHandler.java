@@ -3,17 +3,13 @@ import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
-import map.Map;
 import map.Obstacles;
 import map.SpecialCostZones;
-import simulation.Simulation;
 
 public class SimHandler extends DefaultHandler {
 	
 	//Attributes
-	private Simulation sim = null;
-	private Map map = null; 
-	private SpecialCostZones[] spcost; 
+	private SpecialCostZones[] spcost;
 	private Obstacles[] obs; 
 	//Number of Special Cost Zones and Obstacles
 	int nsp = 0, nobs = 0; 
@@ -36,12 +32,6 @@ public class SimHandler extends DefaultHandler {
 	
 	
 	//Getters 
-	public Simulation getSim() {
-		return sim;
-	}
-	public Map getMap() {
-		return map;
-	}
 	public SpecialCostZones[] getSpcost() {
 		return spcost; 
 	}
@@ -70,7 +60,7 @@ public class SimHandler extends DefaultHandler {
 	    	  spcost = new SpecialCostZones[nsp]; 
 	    	  nsp--; 
 	      }
-	      else if (qName.equalsIgnoreCase("zone")) {
+	      else if (qName.equalsIgnoreCase("zone")){
 	    	  scxin = Integer.parseInt(attr.getValue("xinitial")); 
 	    	  scyin = Integer.parseInt(attr.getValue("yinitial"));
 	    	  scxfinal = Integer.parseInt(attr.getValue("xfinal")); 
@@ -81,7 +71,7 @@ public class SimHandler extends DefaultHandler {
 	    	  //fobs = true;
 	    	  nobs = Integer.parseInt(attr.getValue("num")); 
 	    	  obs = new Obstacles[nobs];
-	    	  nobs--; 
+	    	  nobs--;
 	      }
 	      else if(qName.equalsIgnoreCase("obstacle")){
 	    	  //fob = true; 
@@ -105,17 +95,15 @@ public class SimHandler extends DefaultHandler {
 	    	  yin = Integer.parseInt(attr.getValue("yinitial")); 
 	      }
 	}
+	
 	@Override
 	public void characters(char[] ch, int start, int length) throws SAXException{
-		if(fzone) {
+		if(fzone){
 			cost = Integer.parseInt(new String(ch, start, length)); 
 			spcost[nsp] = new SpecialCostZones(scxin, scyin, scxfinal, scyfinal, cost);
 			nsp--; 
 			fzone = false; 
 		}
-			
-
 	}
-	
 
 }
