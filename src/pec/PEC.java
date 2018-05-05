@@ -28,7 +28,8 @@ class PEC implements IPEC{
 		}
 	}
 	public IEvent Remove(){
-		return eventList.remove(0);
+		if(!eventList.isEmpty())
+			return eventList.remove(0);
 	}
 
 }
