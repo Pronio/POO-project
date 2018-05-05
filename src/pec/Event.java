@@ -13,6 +13,13 @@ abstract class Event implements IEvent{
 		else if(time == ((Event)e).time) return 0;
 		else return -1;
 	}
+	
+	
+	@Override
+	public String toString() {
+		return "Event [time=" + time + "]";
+	}
+
 	abstract public IEvent execute();
 
 }
