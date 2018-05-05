@@ -70,7 +70,7 @@ class PEC implements IPEC{
 			pec_teste.Add(new EventInst(a));
 		}
 		
-		//pec_teste.Remove();
+		pec_teste.Remove();
 		
 		for(int i=0; i<pec_teste.eventList.size(); i++){
 			System.out.print("["+pec_teste.eventList.get(i)+"], ");
