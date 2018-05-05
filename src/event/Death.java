@@ -1,12 +1,13 @@
 package event;
 
 import pec.IEvent;
-import simulation.Individual;
+import simulation.*;
 
 public class Death extends Event_Individual{
 	
 	//Constructor 
-	public Death(Individual individual, double time) {
+	public Death(Individual individual, Simulation sim,  double time) {
+		this.sim = sim; 
 		this.individual = individual; 
 		this.time = time; 
 	}

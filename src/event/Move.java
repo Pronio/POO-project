@@ -2,11 +2,13 @@ package event;
 
 import pec.IEvent;
 import simulation.Individual;
+import simulation.Simulation;
 
 public class Move extends Event_Individual{
 
 	//Constructor 
-	public Move(Individual individual, double time) {
+	public Move(Individual individual, Simulation sim, double time) {
+		this.sim = sim; 
 		this.individual = individual; 
 		this.time = time; 
 	}
@@ -16,7 +18,7 @@ public class Move extends Event_Individual{
 		//Call to the corresponding method of the individual associated with the event being executed
 		this.individual.move(); 
 		//Returning the new move event to be added to the PEC
-		return new Move(this.individual, this.time()); 
+		return new Move(this.individual, this.sim, this.time()); 
 	}
 	
 	//Redefinition of the method time() inherited from Event_Individual

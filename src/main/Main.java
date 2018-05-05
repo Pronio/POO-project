@@ -51,23 +51,30 @@ public class Main {
 		    System.out.println("Death param = "+handler.dparam);
 		    System.out.println("Reproduction param = "+handler.rparam);
 		    System.out.println("Move param = "+handler.mparam);
-	    } 
-	    catch(IOException e) {
+		    
+	    }catch(IOException e) {
 	    	System.err.println("IO error");
 	    	System.exit(1);
-	    } 
-	    catch(SAXException e) {
+	    }catch(SAXException e) {
 	    	System.err.println("Parser error");
 	    	System.exit(1);
-	    } 
-	    catch(ParserConfigurationException e) {
+	    }catch(ParserConfigurationException e) {
 	    	System.err.println("Parser configuration error");
 	    	System.exit(1);
-	    } 
-	    catch(IndexOutOfBoundsException e) {
+	    }catch(IndexOutOfBoundsException e) {
 	    	System.err.println("Dimensions error");
 	    	System.exit(1); 
+	    }catch (NullPointerException e) {
+	    	System.err.println("Null pointer error"); 
+	    	System.exit(1);
+	    }catch(NumberFormatException e ) {
+	    	System.err.println("Number format error");
+	    	System.exit(1);
+	    }catch(NegativeArraySizeException e) {
+	    	System.err.println("Negative array size error");
+	    	System.exit(1);
 	    }
+	   
 	    
 	    IMap node;
 	    
