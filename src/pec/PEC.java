@@ -14,6 +14,7 @@ public class PEC implements IPEC{
 	public void Add(IEvent e){
 		if(eventList.isEmpty()){
 			eventList.add(e);
+			System.out.println("PEC empty adding "+e.toString()); 
 		}else{
 			int i;
 			boolean found = false;
@@ -29,7 +30,7 @@ public class PEC implements IPEC{
 			else{
 				eventList.add(e);
 			}
-			
+			System.out.println("Adding "+e.toString()); 
 		}
 	}
 	public IEvent Remove(){

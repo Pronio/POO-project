@@ -90,6 +90,7 @@ public class Main {
 			System.out.println(node);
 		}		
 		System.out.println("---------------------------");
+		System.out.println("----------- PEC -----------");
 		System.out.println("---------------------------");
 		
 		Individual I = new Individual(false); 
@@ -97,15 +98,19 @@ public class Main {
 	    Death d = new Death(sim, I); 
 		Reproduction r = new Reproduction(sim, I); 
 		Move m = new Move(sim, I); 
-		IEvent e = null; 
+		Observation o = new Observation(sim); 
+		IEvent e = null, e_next = null; 
 		pec.Add(d);
 		pec.Add(m);
-		pec.Add(r); 
-		System.out.println("Events:"); 
-		System.out.println(d.toString());
-		System.out.println(m.toString());
-		System.out.println(r.toString());
-		for(e = pec.Remove(); e != null; e.toString()); 
+		pec.Add(r);
+		pec.Add(o);
+		
+		for(e = pec.Remove(); e != null && e.getTime() < sim.getTmax(); e = pec.Remove()) {
+			System.out.println("Removing: "+e.toString());
+			e_next = e.execute(); 
+			if(e_next != null)
+				pec.Add(e_next);
+		}
 		System.exit(-1);
 	}
 }
