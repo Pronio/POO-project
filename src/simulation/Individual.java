@@ -1,12 +1,14 @@
 package simulation;
 
-import map.IMap; 
+import map.IMap;
+import pec.Event;
+import pec.IEvent;
 
 import java.util.LinkedList;
 
 public class Individual implements IIndividual {
 	
-	private int cost = 0, length = 0; 
+	private int cost = Integer.MAX_VALUE, length = 0; 
 	private boolean death = false; 
 	LinkedList<IMap> path = null; 
 	Simulation sim = null; 
@@ -23,6 +25,7 @@ public class Individual implements IIndividual {
 	}
 	
 	//Getters and Setters for private attributes 
+	@Override
 	public int getCost(){
 		return cost;
 	}
@@ -32,9 +35,6 @@ public class Individual implements IIndividual {
 	public boolean getDeath(){
 		return death;
 	}
-	public void setDeath(boolean death) {
-		this.death = death;
-	}
 
 	@Override
 	public int move(){
@@ -43,6 +43,8 @@ public class Individual implements IIndividual {
 		next = current.nextNodeRandom(); 
 		this.path.addLast(next);
 		//Missing the cost update
+		if(next.getPosX() == sim.finalx && next.getPosY() == sim.finaly)
+			sim.hit = true; 
 		return 0;
 	}
 
@@ -53,23 +55,33 @@ public class Individual implements IIndividual {
 		for(;new_path.size()<= Math.ceil(path.size()*0.90+0.1*1/this.Comfort()) && path.size()>1; new_path.removeFirst()); 
 		System.out.println("Child path: "+new_path.toString()); 
 		Individual child = new Individual(new_path, this.sim); 
+		this.sim.addIndividual(child);
 		return child;
 	}
 	
 
 	@Override
 	public double Comfort(){
-		return Math.pow((1-this.cost-this.length+2)/((this.sim.cmax-1)*this.length+3), this.sim.comfort_param)*
-				Math.pow(1-Math.abs(this.sim.finalx - (this.path.getLast().getPosX())+Math.abs(this.sim.finaly - this.path.getLast().getPosY()))/
+		return Math.pow(1-(this.cost-this.length+2)/((this.sim.cmax-1)*this.length+3), this.sim.comfort_param)*
+				Math.pow(1-Math.abs(this.sim.finalx - this.path.getLast().getPosX())+Math.abs(this.sim.finaly - this.path.getLast().getPosY())/
 						(this.path.getFirst().getDim()+1), this.sim.comfort_param);
 	}
 	
 	@Override
-	public void GetPath() {
-		System.out.println("Path: "+path.toString()); 
+	public LinkedList<IMap> GetPath() {
+		System.out.println("Path: "+path.toString());
+		return path; 
 	}
 	@Override
-	public void kill() {
+	public void kill(){
+		this.death = true; 
+		this.sim.removeIndividual(this);
+	}
+	
+	public int compareTo(IIndividual i){
+		if(this.Comfort() > ((IIndividual)i).Comfort()) return 1;
+		else if(this.Comfort() == ((IIndividual)i).Comfort()) return 0;
+		else return -1;
 	}
 
 }

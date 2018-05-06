@@ -6,7 +6,7 @@ import simulation.ISimulation;
 public class Reproduction extends Event_Individual{
 
 	//Constructor 
-	public Reproduction(ISimulation sim, IIndividual individual) {
+	public Reproduction(ISimulation sim, IIndividual individual){
 		super(expRandom((1-Math.log(individual.Comfort()))*sim.GetReproduction()), sim, individual);
 	}
 	public Reproduction(double time, ISimulation sim, IIndividual individual){

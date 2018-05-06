@@ -15,8 +15,6 @@ public class Death extends Event_Individual{
 	public IEvent execute(){
 		//Verifies if the individual has died 
 		if(!(individual.getDeath())) {
-			//Updating the values of the Individual associated with the event being executed
-			this.individual.setDeath(true);
 			//Call to the corresponding method of the individual associated with the event being executed 
 			this.individual.kill();
 		}

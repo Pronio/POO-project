@@ -24,11 +24,9 @@ public class Main {
 	    fact.setValidating(true); 
 	    //Objects to store the XML file info
 	    Simulation sim = null ;
-	    Map map = null;  
-	    SpecialCostZones[] spcost = null;
-	    Obstacles[] obs = null;
-	    
+	    Map map = null;  	    
 	    PEC pec = new PEC(); 
+	    double tnow = 0.0; 
 	    
 	    try{
 	    	SAXParser saxParser = fact.newSAXParser();
@@ -74,38 +72,30 @@ public class Main {
 	    	System.err.println("Negative array size error");
 	    	System.exit(1);
 	    }
-	   
-	    
-	    IMap node;
-	    
-	    System.out.println("---------------------------");
-	    System.out.println("---------- MOVES ----------"); 
-	    System.out.println("---------------------------");		
-		node = map.start.nextNodeRandom();
-		
-		System.out.println(node);
-		
-		for (int i = 0; i<100; i++) {
-			node = node.nextNodeRandom(); 
-			System.out.println(node);
-		}		
+	
 		System.out.println("---------------------------");
 		System.out.println("----------- PEC -----------");
 		System.out.println("---------------------------");
 		
-		IIndividual I = new Individual(map.start, sim); 
-		System.out.println("Start: "+map.start); 
-	    Death d = new Death(sim, I); 
-		Reproduction r = new Reproduction(sim, I); 
-		Move m = new Move(sim, I); 
-		Observation o = new Observation(sim); 
-		IEvent e = null, e_next = null; 
-		pec.Add(m);
-		pec.Add(r);
-		pec.Add(d);
+		//Population initialization 
+		for(int i = 0; i<sim.getInitpop(); i++) {
+			IIndividual I = new Individual(map.start, sim);
+			System.out.println("Created individual number: "+(i+1)); 
+			sim.addIndividual(I);
+			pec.Add(new Death(sim, I)); 
+			pec.Add(new Reproduction(sim, I)); 
+			pec.Add(new Move(sim, I)); 
+			
+		}
 		
+		pec.Add(new Observation(sim));
+
+		IEvent e = null, e_next = null; 
+
 		for(e = pec.Remove(); e != null && e.getTime() < sim.getTmax(); e = pec.Remove()) {
-			System.out.println("Removing: "+e.toString());
+			tnow = e.getTime(); 
+			sim.setTnow(tnow);
+			sim.setNev(sim.getNev()+1); 
 			e_next = e.execute(); 
 			if(e_next != null)
 				pec.Add(e_next);

@@ -13,23 +13,21 @@ public class Observation extends Event_Simulation{
 	//Constructor of the first observation event
 	public Observation(ISimulation sim){
 		super(sim.getTmax()/NOBS, sim);  
-		this.num = 1; 
 	}
 	//Constructor of a general observation event
-	public Observation(ISimulation sim, double time, int num) {
-		super(time, sim);
-		this.num = num; 
+	public Observation(ISimulation sim, double time) {
+		super(time, sim); 
 	}
 	
 	//Redefinition of the method execute() inherited from IEvent
 	public IEvent execute(){
 		//Checks to see if all observations have been done (meaning checks if NOBS has been met)
-		if(this.num <= NOBS){
-			System.out.println("Observation number: " + this.num);
+		if( this.sim.getNobs()<= NOBS){
+			this.sim.setNobs(this.sim.getNobs()+1);
 			//Calls the stats function that will print the state of the simulation to the console 
 			this.sim.stats();
 			//Returns the new observation event to be added to the PEC
-			return new Observation(this.sim, this.time + this.sim.getTmax()/NOBS, this.num+1); 
+			return new Observation(this.sim, this.time + this.sim.getTmax()/NOBS); 
 		}
 		
 		else {
