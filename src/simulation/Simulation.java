@@ -1,69 +1,89 @@
 package simulation;
 
-public class Simulation {
-	int finalinst, initpop, maxpop, comfortsens;
-	int rparam, mparam, dparam; 
-	double tmax; 
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.ListIterator;
+
+import map.IMap;
+
+public class Simulation implements ISimulation {
 	
-	public Simulation(){
-		super();
-	}
-	
-	public Simulation(int finalinst, int initpop, int maxpop, int comfortsens, int rparam, int mparam,
-			int dparam, double tmax) {
-		super();
-		this.finalinst = finalinst;
-		this.initpop = initpop;
-		this.maxpop = maxpop;
-		this.comfortsens = comfortsens;
-		this.rparam = rparam;
-		this.mparam = mparam;
-		this.dparam = dparam;
-		this.tmax = tmax;
-	}
-	
-	public double getTmax(){
-		return tmax; 
-	}
-	
-	public int getRparam() {
-		return rparam;
-	}
+	double best_cost;
+	int size, cmax;
+	boolean hit;
+	LinkedList<IMap> best_path = new LinkedList<IMap>();
+	LinkedList<Individual> individuals = new LinkedList<Individual>();
+	final double tmax;
+	final int maximum_individual, finalx, finaly, comfort_param, death_param, move_param, reproduction_param;
 
-	public void setRparam(int rparam) {
-		this.rparam = rparam;
-	}
-
-	public int getMparam() {
-		return mparam;
-	}
-
-	public void setMparam(int mparam) {
-		this.mparam = mparam;
-	}
-
-	public int getDparam() {
-		return dparam;
-	}
-
-	public void setDparam(int dparam) {
-		this.dparam = dparam;
+	@Override
+	public void finalStats() {
+		System.out.print("Path of the best fit individual = {");
+		
+		for(ListIterator<IMap> i = best_path.listIterator(); i.hasNext();) {
+			System.out.print(i.next());
+			if(i.nextIndex() != best_path.size()) {
+				System.out.print(",");
+			}
+		}
+		System.out.println("}");
 	}
 
 	@Override
-	public String toString() {
-		return "finalinst: "+finalinst+" inipop: "+initpop+" maxpop: "+maxpop+" comfortsens: "+comfortsens+" dparam: "+dparam+" rparam: "+rparam+" mparam: "+mparam;
-	}
-
 	public void stats() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
-	public void finalstats() {
-		// TODO Auto-generated method stub
+	@Override
+	public double getTmax() {
+		return tmax; 
+	}
+
+	@Override
+	public int GetMove() {
+		return move_param;
+	}
+	@Override
+	public int GetDeath() {
+		return death_param;
+	}
+	@Override
+	public int GetReproduction() {
+		return reproduction_param;
+	}
+	@Override
+	public int getCmax() {
+		return cmax;
+	}
+
+	void epidemics() {
 		
+	}
+	
+	@Override
+	public int getCparam() {
+		return this.comfort_param;
+	}
+	
+	@Override
+	public String toString() {
+		return "finalinst: "+tmax+" size: "+size+" maxpop: "+maximum_individual+" comfortsens: "+comfort_param;
 	} 
-	
-	
+	public Simulation(double tmax, int mind, int inipop, int fx, int fy, int cmax, int c_param, int d_param, int m_param, int r_param){
+		this.tmax = tmax;
+		maximum_individual = mind;
+		finalx = fx;
+		finaly = fy;
+		comfort_param = c_param;
+		death_param = d_param;
+		move_param = m_param;
+		reproduction_param = r_param;
+		hit = false;
+		size = inipop;
+		best_cost = -1;
+	}
+
 }
+
+

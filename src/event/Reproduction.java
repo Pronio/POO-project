@@ -1,15 +1,15 @@
 package event;
 import pec.IEvent;
-import simulation.Individual;
-import simulation.Simulation; 
+import simulation.IIndividual;
+import simulation.ISimulation; 
 
 public class Reproduction extends Event_Individual{
 
 	//Constructor 
-	public Reproduction(Simulation sim, Individual individual) {
-		super(expRandom((1-Math.log(individual.Comfort()))*sim.getRparam()), sim, individual);
+	public Reproduction(ISimulation sim, IIndividual individual) {
+		super(expRandom((1-Math.log(individual.Comfort()))*sim.GetReproduction()), sim, individual);
 	}
-	public Reproduction(double time, Simulation sim, Individual individual){
+	public Reproduction(double time, ISimulation sim, IIndividual individual){
 		super(time, sim, individual);
 	}
 	
@@ -26,7 +26,7 @@ public class Reproduction extends Event_Individual{
 	//Redefinition of the method time() inherited from Event_Individual
 	double time(){
 		double time = this.time;  
-		time = time + expRandom((1-Math.log(this.individual.Comfort()))*this.sim.getRparam()); 
+		time = time + expRandom((1-Math.log(this.individual.Comfort()))*this.sim.GetReproduction()); 
 		return time; 
 	}
 	@Override

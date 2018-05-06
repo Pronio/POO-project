@@ -1,15 +1,15 @@
 package event;
 
-import simulation.Individual;
-import simulation.Simulation;
+import simulation.IIndividual;
+import simulation.ISimulation;
 
 import java.util.Random;
 
 public abstract class Event_Individual extends Event_Simulation{
 	
-	Individual individual; 
+	IIndividual individual; 
 	
-	public Event_Individual(double time, Simulation sim, Individual individual) {
+	public Event_Individual(double time, ISimulation sim, IIndividual individual) {
 		super(time, sim);
 		this.individual = individual;
 	}

@@ -1,7 +1,7 @@
 package event;
 
 import pec.IEvent;
-import simulation.Simulation;
+import simulation.ISimulation;
 
 public class Observation extends Event_Simulation{
 		 
@@ -11,12 +11,12 @@ public class Observation extends Event_Simulation{
 	public static final int NOBS = 20;
 	
 	//Constructor of the first observation event
-	public Observation(Simulation sim){
+	public Observation(ISimulation sim){
 		super(sim.getTmax()/NOBS, sim);  
 		this.num = 1; 
 	}
 	//Constructor of a general observation event
-	public Observation(Simulation sim, double time, int num) {
+	public Observation(ISimulation sim, double time, int num) {
 		super(time, sim);
 		this.num = num; 
 	}
@@ -34,7 +34,7 @@ public class Observation extends Event_Simulation{
 		
 		else {
 			//Calls the function finalstats because we have reached the end of the simulation
-			this.sim.finalstats();
+			this.sim.finalStats();
 			//Doesn't return a new observation event to add to the PEC
 			return null; 
 		}

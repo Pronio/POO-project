@@ -1,16 +1,16 @@
 package event;
 
 import pec.IEvent;
-import simulation.Individual;
-import simulation.Simulation;
+import simulation.IIndividual;
+import simulation.ISimulation;
 
 public class Move extends Event_Individual{
 
 	//Constructor 
-	public Move(Simulation sim, Individual individual) {
-		super(expRandom((1-Math.log(individual.Comfort()))*sim.getMparam()), sim, individual);
+	public Move(ISimulation sim, IIndividual individual) {
+		super(expRandom((1-Math.log(individual.Comfort()))*sim.GetMove()), sim, individual);
 	}
-	public Move(double time, Simulation sim, Individual individual) {
+	public Move(double time, ISimulation sim, IIndividual individual) {
 		super(time, sim, individual);
 	}
 
@@ -26,7 +26,7 @@ public class Move extends Event_Individual{
 	//Redefinition of the method time() inherited from Event_Individual
 	double time(){
 		double time = this.time;  
-		time = time + expRandom((1-Math.log(this.individual.Comfort()))*this.sim.getMparam()); 
+		time = time + expRandom((1-Math.log(this.individual.Comfort()))*this.sim.GetMove()); 
 		return time; 
 	}
 	@Override

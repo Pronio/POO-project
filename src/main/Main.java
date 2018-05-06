@@ -39,7 +39,7 @@ public class Main {
 		    System.out.println("---------------------------");
 		    System.out.println("----------- MAP -----------"); 
 		    System.out.println("---------------------------");	
-		    sim = new Simulation(handler.finalinst, handler.initpop, handler.maxpop, handler.comfortsens, handler.rparam, handler.mparam, handler.dparam, handler.finalinst);
+		    sim = new Simulation(handler.finalinst, handler.maxpop, handler.initpop,handler.xfinal,handler.yfinal, handler.cmax,handler.comfortsens,handler.dparam, handler.mparam, handler.rparam);
 		    map = new Map(handler.colsnb, handler.rowsnb, handler.getObs(), handler.getSpcost(), handler.xin, handler.yin);
 		    //Control prints
 		    System.out.println("---------------------------");
@@ -48,9 +48,9 @@ public class Main {
 		    System.out.println("Simulation: "+sim.toString()); 
 		    System.out.println("Spetial Cost Zones: "+ Arrays.deepToString(handler.getSpcost()));
 		    System.out.println("Obstacles: "+ Arrays.deepToString(handler.getObs()));
-		    System.out.println("Death param = "+sim.getDparam());
-		    System.out.println("Reproduction param = "+sim.getRparam());
-		    System.out.println("Move param = "+sim.getMparam());
+		    System.out.println("Death param = "+sim.GetDeath());
+		    System.out.println("Reproduction param = "+sim.GetReproduction());
+		    System.out.println("Move param = "+sim.GetMove());
 		    
 	    }catch(IOException e) {
 	    	System.err.println("IO error");
@@ -93,21 +93,21 @@ public class Main {
 		System.out.println("----------- PEC -----------");
 		System.out.println("---------------------------");
 		
-		Individual I = new Individual(false); 
-		I.setComfort(0.4);
+		IIndividual I = new Individual(map.start, sim); 
+		System.out.println("Start: "+map.start); 
 	    Death d = new Death(sim, I); 
 		Reproduction r = new Reproduction(sim, I); 
 		Move m = new Move(sim, I); 
 		Observation o = new Observation(sim); 
 		IEvent e = null, e_next = null; 
-		pec.Add(d);
 		pec.Add(m);
 		pec.Add(r);
-		pec.Add(o);
 		
 		for(e = pec.Remove(); e != null && e.getTime() < sim.getTmax(); e = pec.Remove()) {
 			System.out.println("Removing: "+e.toString());
 			e_next = e.execute(); 
+			if(e.getClass()==m.getClass())
+				I.GetPath(); 
 			if(e_next != null)
 				pec.Add(e_next);
 		}

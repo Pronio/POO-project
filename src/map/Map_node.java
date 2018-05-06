@@ -4,17 +4,24 @@ import java.util.Random;
 
 public class Map_node implements IMap {
 	
-	final int x,y;
+
+	final int x,y,dim;
 	Integer[] cost = new Integer[4];
 	Map_node[] next = new Map_node[4];
 
-	Map_node(int x, int y) {
+	Map_node(int x, int y, int dim) {
 		this.x = x;
 		this.y = y;
+		this.dim = dim; 
 	}
 	
 	@Override
-	public IMap nextNodeRandom() {
+	public int getDim() {
+		return dim;
+	}
+
+	@Override
+	public IMap nextNodeRandom(){
 		
 		int n_next = 0;
 		Integer[] active = new Integer[4];

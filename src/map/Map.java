@@ -13,7 +13,7 @@ public class Map {
 		for(int i=0; i<n; i++) {
 			for(int j=0; j<m; j++) {
 				//Creation of a new Map_node
-				map[i][j] = new Map_node(i+1,j+1);
+				map[i][j] = new Map_node(i+1,j+1, n*m);
 				map[i][j].cost[0] = 0;
 				map[i][j].cost[1] = 0;
 				map[i][j].cost[2] = 0;

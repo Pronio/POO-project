@@ -18,7 +18,7 @@ public class SimHandler extends DefaultHandler {
 	//Simulation parameters 
 	int maxpop, comfortsens, initpop, finalinst; 
 	//Grid parameters 
-	int colsnb, rowsnb;
+	int colsnb, rowsnb, cmax;
 	//Initial point parameters
 	int xin, yin; 
 	//Final point parameters
@@ -100,6 +100,8 @@ public class SimHandler extends DefaultHandler {
 	public void characters(char[] ch, int start, int length) throws SAXException{
 		if(fzone){
 			cost = Integer.parseInt(new String(ch, start, length)); 
+			if(cmax == 0 || cmax < cost)
+				cmax = cost; 
 			spcost[nsp] = new SpecialCostZones(scxin, scyin, scxfinal, scyfinal, cost);
 			nsp--; 
 			fzone = false; 
