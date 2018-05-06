@@ -12,12 +12,15 @@ public class Death extends Event_Individual{
 	} 
 	
 	//Redefinition of the method execute() inherited from IEvent
-	public IEvent execute(){		
-		//Updating the values of the Individual associated with the event being executed
-		this.individual.setDeath(true);
-		//Call to the corresponding method of the individual associated with the event being executed 
-		this.individual.kill();
-		//Don't return new events
+	public IEvent execute(){
+		//Verifies if the individual has died 
+		if(!(individual.getDeath())) {
+			//Updating the values of the Individual associated with the event being executed
+			this.individual.setDeath(true);
+			//Call to the corresponding method of the individual associated with the event being executed 
+			this.individual.kill();
+		}
+		//Doens't return new events to be added to the PEC
 		return null; 
 	}
 

@@ -102,12 +102,11 @@ public class Main {
 		IEvent e = null, e_next = null; 
 		pec.Add(m);
 		pec.Add(r);
+		pec.Add(d);
 		
 		for(e = pec.Remove(); e != null && e.getTime() < sim.getTmax(); e = pec.Remove()) {
 			System.out.println("Removing: "+e.toString());
 			e_next = e.execute(); 
-			if(e.getClass()==m.getClass())
-				I.GetPath(); 
 			if(e_next != null)
 				pec.Add(e_next);
 		}
