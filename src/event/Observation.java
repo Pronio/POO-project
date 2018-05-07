@@ -22,7 +22,7 @@ public class Observation extends Event_Simulation{
 	//Redefinition of the method execute() inherited from IEvent
 	public IEvent execute(){
 		//Checks to see if all observations have been done (meaning checks if NOBS has been met)
-		if( this.sim.getNobs()<= NOBS){
+		if(this.sim.getNobs()< NOBS){
 			this.sim.setNobs(this.sim.getNobs()+1);
 			//Calls the stats function that will print the state of the simulation to the console 
 			this.sim.stats();
@@ -37,5 +37,11 @@ public class Observation extends Event_Simulation{
 			return null; 
 		}
 	}
+	@Override
+	public String toString() {
+		return "Observation: [time=" + time + "]"; 
+	}
+	
+	
 
 }

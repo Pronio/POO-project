@@ -32,12 +32,12 @@ public class Main {
 	    	SAXParser saxParser = fact.newSAXParser();
 		    //Parse the XML document to this handler
 		    SimHandler handler = new SimHandler(); 
-		    saxParser.parse(new File("src/data.xml"), handler);
+		    saxParser.parse(new File("src/data1.xml"), handler);
 		    //Getting the objects stored in the parser handler 
 		    System.out.println("---------------------------");
 		    System.out.println("----------- MAP -----------"); 
 		    System.out.println("---------------------------");	
-		    sim = new Simulation(handler.finalinst, handler.maxpop, handler.initpop,handler.xfinal,handler.yfinal, handler.cmax,handler.comfortsens,handler.dparam, handler.mparam, handler.rparam);
+		    sim = new Simulation(handler.finalinst, handler.maxpop, handler.initpop,handler.xfinal,handler.yfinal, handler.colsnb, handler.rowsnb, handler.cmax,handler.comfortsens,handler.dparam, handler.mparam, handler.rparam);
 		    map = new Map(handler.colsnb, handler.rowsnb, handler.getObs(), handler.getSpcost(), handler.xin, handler.yin);
 		    //Control prints
 		    System.out.println("---------------------------");
@@ -89,15 +89,16 @@ public class Main {
 		}
 		
 		pec.Add(new Observation(sim));
+		pec.Add(new Observation(sim, sim.getTmax()));
 
 		IEvent e = null, e_next = null; 
 
-		for(e = pec.Remove(); e != null && e.getTime() < sim.getTmax(); e = pec.Remove()) {
+		for(e = pec.Remove(); e != null && e.getTime() <= sim.getTmax(); e = pec.Remove()) {
 			tnow = e.getTime(); 
 			sim.setTnow(tnow);
 			sim.setNev(sim.getNev()+1); 
-			e_next = e.execute(); 
-			if(e_next != null)
+			e_next = e.execute();
+			if(e_next != null && !Double.isNaN(e_next.getTime()))
 				pec.Add(e_next);
 		}
 		System.exit(-1);

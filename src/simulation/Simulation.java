@@ -16,7 +16,7 @@ public class Simulation implements ISimulation {
 	LinkedList<Individual> individuals = new LinkedList<Individual>();
 	
 	final double tmax;
-	final int maximum_individual, finalx, finaly, comfort_param, death_param, move_param, reproduction_param, inipop;
+	final int maximum_individual, finalx, finaly, comfort_param, death_param, move_param, reproduction_param, inipop, m, n;
 	
 	public void setTnow(double t) {
 		tnow = t; 
@@ -33,6 +33,8 @@ public class Simulation implements ISimulation {
 	public void setNev(int nev) {
 		this.nev = nev;
 	}
+	
+	
 
 	public void addIndividual(IIndividual I){
 		if(hit) {
@@ -79,7 +81,7 @@ public class Simulation implements ISimulation {
 		System.out.println("Population Size: "+size);
 		System.out.println("Final point has been hit: "+hit); 
 		System.out.println("Path of the best fit individual:"+best_path);
-		System.out.println("Cost/Comfort: "+best_cost); 
+		System.out.println(hit ? "Cost: "+best_cost: "Comfort: "+best_cost); 
 	}
 	
 	@Override
@@ -121,7 +123,9 @@ public class Simulation implements ISimulation {
 	public String toString() {
 		return "finalinst: "+tmax+" size: "+size+" maxpop: "+maximum_individual+" comfortsens: "+comfort_param;
 	} 
-	public Simulation(double tmax, int mind, int inipop, int fx, int fy, int cmax, int c_param, int d_param, int m_param, int r_param){
+	public Simulation(double tmax, int mind, int inipop, int fx, int fy, int n, int m, int cmax, int c_param, int d_param, int m_param, int r_param){
+		this.m = m; 
+		this.n = n; 
 		this.tmax = tmax;
 		maximum_individual = mind;
 		finalx = fx;
@@ -136,6 +140,7 @@ public class Simulation implements ISimulation {
 		best_cost = -1;
 		nobs= 0; 
 		nev = 0; 
+		this.cmax = cmax; 
 	}
 
 

@@ -5,20 +5,15 @@ import java.util.Random;
 public class Map_node implements IMap {
 	
 
-	final int x,y,dim;
+	final int x,y;
 	Integer[] cost = new Integer[4];
 	Map_node[] next = new Map_node[4];
 
 	Map_node(int x, int y, int dim) {
 		this.x = x;
 		this.y = y;
-		this.dim = dim; 
 	}
 	
-	@Override
-	public int getDim() {
-		return dim;
-	}
 
 	@Override
 	public IMap nextNodeRandom(){
