@@ -1,68 +1,29 @@
 package simulation;
 
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.ListIterator;
 
+import map.IMap_node;
 import map.IMap;
 
 public class Simulation implements ISimulation {
 	
-	double best_cost, tnow;
-	int size, cmax, nobs, nev;
-
+	double best_cost;
+	int size, nobs, nev;
 	boolean hit;
-	LinkedList<IMap> best_path = new LinkedList<IMap>();
+	
+	LinkedList<IMap_node> best_path;
 	LinkedList<Individual> individuals = new LinkedList<Individual>();
 	
+	final IMap map;
 	final double tmax;
-	final int maximum_individual, finalx, finaly, comfort_param, death_param, move_param, reproduction_param, inipop, m, n;
-	
-	public void setTnow(double t) {
-		tnow = t; 
-	}
-	public int getNobs() {
-		return nobs;
-	}
-	public void setNobs(int nobs) {
-		this.nobs = nobs;
-	}
-	public int getNev() {
-		return nev;
-	}
-	public void setNev(int nev) {
-		this.nev = nev;
-	}
-	
-	
-
-	public void addIndividual(IIndividual I){
-		if(hit) {
-			if(best_cost > I.getCost()){
-				best_cost = I.getCost(); 
-				best_path = I.GetPath(); 
-			}
-		}
-		else{
-			if(best_cost > I.Comfort()) {
-				best_cost = I.Comfort(); 
-				best_path = I.GetPath(); 
-			}
-		}
-		individuals.add((Individual) I); 
-		size++; 
-	}
-	
-	public void removeIndividual(IIndividual I) {
-		individuals.remove((Individual) I); 
-		size--; 
-	}
+	final int maximum_individual, finalx, finaly, comfort_param, death_param, move_param, reproduction_param;
 
 	@Override
 	public void finalStats() {
 		System.out.print("Path of the best fit individual = {");
 		
-		for(ListIterator<IMap> i = best_path.listIterator(); i.hasNext();) {
+		for(ListIterator<IMap_node> i = best_path.listIterator(); i.hasNext();) {
 			System.out.print(i.next());
 			if(i.nextIndex() != best_path.size()) {
 				System.out.print(",");
@@ -72,24 +33,20 @@ public class Simulation implements ISimulation {
 	}
 
 	@Override
-	public void stats() {
-		System.out.println("---------------------------------------------------");
-		System.out.println("---------------------------------------------------");
-		System.out.println("Observation number: "+nobs); 
-		System.out.println("Present Instant: "+tnow);
-		System.out.println("Number of realized events: "+nev); 
-		System.out.println("Population Size: "+size);
-		System.out.println("Final point has been hit: "+hit); 
-		System.out.println("Path of the best fit individual:"+best_path);
-		System.out.println(hit ? "Cost: "+best_cost: "Comfort: "+best_cost); 
+	public void stats(double t) {
+		nobs++;
+		System.out.println("Observation number: "+nobs+":"); 
+		System.out.println("			Present Instant: "+t);
+		System.out.println("			Number of realized events: "+nev); 
+		System.out.println("			Population Size: "+size);
+		System.out.println("			Final point has been hit: "+hit); 
+		System.out.println("			Path of the best fit individual:"+best_path);
+		System.out.println(hit ? "			Cost: "+best_cost: "			Comfort: "+best_cost);
 	}
 	
+	
 	@Override
-	public int getInitpop() {
-		return inipop;
-	}
-	@Override
-	public double getTmax() {
+	public double GetTmax() {
 		return tmax; 
 	}
 
@@ -105,42 +62,31 @@ public class Simulation implements ISimulation {
 	public int GetReproduction() {
 		return reproduction_param;
 	}
-	@Override
-	public int getCmax() {
-		return cmax;
-	}
 
 	void epidemics() {
 		
 	}
 	
 	@Override
-	public int getCparam() {
-		return this.comfort_param;
-	}
-	
-	@Override
 	public String toString() {
 		return "finalinst: "+tmax+" size: "+size+" maxpop: "+maximum_individual+" comfortsens: "+comfort_param;
 	} 
-	public Simulation(double tmax, int mind, int inipop, int fx, int fy, int n, int m, int cmax, int c_param, int d_param, int m_param, int r_param){
-		this.m = m; 
-		this.n = n; 
+	
+	public Simulation(double tmax, int mind, IMap map,int fx, int fy, int c_param, int d_param, int m_param, int r_param){
 		this.tmax = tmax;
 		maximum_individual = mind;
+		this.map = map;
 		finalx = fx;
 		finaly = fy;
 		comfort_param = c_param;
 		death_param = d_param;
 		move_param = m_param;
 		reproduction_param = r_param;
-		hit = false;
-		this.inipop = inipop; 
+		hit = false; 
 		size = 0;
 		best_cost = -1;
 		nobs= 0; 
-		nev = 0; 
-		this.cmax = cmax; 
+		nev = 0;  
 	}
 
 

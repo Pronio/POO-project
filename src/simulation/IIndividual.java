@@ -2,16 +2,14 @@ package simulation;
 
 import java.util.LinkedList;
 
-import map.IMap;
+import map.IMap_node;
 
 public interface IIndividual {
 	
-	public int move();
+	public boolean move();
 	public IIndividual reproduction();
 	public double Comfort();
 	public void kill();
-	public boolean getDeath(); 
-	public int getCost(); 
 	//test
-	public LinkedList<IMap> GetPath();
+	public LinkedList<IMap_node> GetPath();
 }

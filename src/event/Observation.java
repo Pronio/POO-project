@@ -5,14 +5,12 @@ import simulation.ISimulation;
 
 public class Observation extends Event_Simulation{
 		 
-	int num;  
-	
 	//Number of observation that we want to see in the simulation time
 	public static final int NOBS = 20;
 	
 	//Constructor of the first observation event
 	public Observation(ISimulation sim){
-		super(sim.getTmax()/NOBS, sim);  
+		super(sim.GetTmax()/NOBS, sim);  
 	}
 	//Constructor of a general observation event
 	public Observation(ISimulation sim, double time) {
@@ -21,16 +19,15 @@ public class Observation extends Event_Simulation{
 	
 	//Redefinition of the method execute() inherited from IEvent
 	public IEvent execute(){
-		//Checks to see if all observations have been done (meaning checks if NOBS has been met)
-		if(this.sim.getNobs()< NOBS){
-			this.sim.setNobs(this.sim.getNobs()+1);
-			//Calls the stats function that will print the state of the simulation to the console 
-			this.sim.stats();
-			//Returns the new observation event to be added to the PEC
-			return new Observation(this.sim, this.time + this.sim.getTmax()/NOBS); 
-		}
 		
-		else {
+		//Calls the stats function that will print the state of the simulation to the console 
+		this.sim.stats(time);
+		
+		//Checks to see if all observations have been done (meaning checks if NOBS has been met)	
+		if(this.time + this.sim.GetTmax()/NOBS<this.sim.GetTmax()) {
+			//Returns the new observation event to be added to the PEC
+			return new Observation(this.sim, this.time + this.sim.GetTmax()/NOBS); 
+		}else {
 			//Calls the function finalstats because we have reached the end of the simulation
 			this.sim.finalStats();
 			//Doesn't return a new observation event to add to the PEC

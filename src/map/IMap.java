@@ -1,7 +1,8 @@
 package map;
 
 public interface IMap {
-	public IMap nextNodeRandom();
-	public int getPosX();
-	public int getPosY();
+	public int getN();
+	public int getM();
+	public int getCostMax();
+	public IMap_node getStart();
 }

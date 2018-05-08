@@ -2,7 +2,7 @@ package map;
 
 import java.util.Random;
 
-public class Map_node implements IMap {
+public class Map_node implements IMap_node {
 	
 
 	final int x,y;
@@ -16,9 +16,10 @@ public class Map_node implements IMap {
 	
 
 	@Override
-	public IMap nextNodeRandom(){
+	public IMap_node nextNodeRandom(Integer cost){
 		
 		int n_next = 0;
+		int nextindex;
 		Integer[] active = new Integer[4];
 		Random ran = new Random();
 		
@@ -30,9 +31,13 @@ public class Map_node implements IMap {
 		}
 		
 		if(n_next == 0) {
+			cost = 0;
 			return this;
 		}else {
-			return next[active[ran.nextInt(n_next)]];
+			
+			nextindex = active[ran.nextInt(n_next)];
+			cost = this.cost[nextindex];
+			return next[nextindex];
 		}
 
 	}
@@ -50,6 +55,32 @@ public class Map_node implements IMap {
 	@Override
 	public String toString() {
 		return "(" + x + "," + y + ")";
+	}
+
+
+	@Override
+	public int getCost(IMap_node node) {
+		
+			if( this.x == ((Map_node)node).x) {
+				
+				if(this.y > ((Map_node)node).y) {
+					return this.cost[1];
+				}
+				if(this.y < ((Map_node)node).y) {
+					return this.cost[3];
+				}
+			}
+			if( this.y == ((Map_node)node).y) {
+				
+				if(this.x > ((Map_node)node).x) {
+					return this.cost[0];
+				}
+				if(this.x < ((Map_node)node).x) {
+					return this.cost[2];
+				}
+			}
+		
+		return 0;
 	}
 
 }

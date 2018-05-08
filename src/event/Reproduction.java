@@ -15,12 +15,15 @@ public class Reproduction extends Event_Individual{
 	
 	//Redefinition of the method execute() inherited from IEvent
 	public IEvent execute(){
-		//Verifies if the individual has died 
-		if(!(individual.getDeath())) {
-			//Call to the corresponding method of the individual associated with the event being executed
-			this.individual.reproduction(); 
+		
+		IIndividual child;
+		
+		//Verifies if the individual has died and call to the corresponding method of the individual associated with the event being executed
+		if((child = this.individual.reproduction())!=null) {
+					
+		
 			//Returning the new move event to be added to the PEC
-			return new Reproduction(this.time(), this.sim, this.individual); 			
+			return new Reproduction(this.time(), this.sim, child); 			
 		}
 		//Doesn't return a new event to be added to the PEC
 		else

@@ -1,10 +1,10 @@
 package map;
 
-public class Map {
-	public final int n, m;
-	public final Map_node start;
+public class Map implements IMap{
+	private final int n, m, costMax;
+	private final Map_node start;
 
-	public Map(int n, int m, Obstacles[] obs, SpecialCostZones[] spz, int startx, int starty) {
+	public Map(int n, int m, Obstacles[] obs, SpecialCostZones[] spz,int cmax ,int startx, int starty) {
 		
 		//Create a matrix with the size of the map
 		Map_node[][] map= new Map_node[n][m];
@@ -146,6 +146,7 @@ public class Map {
 		
 		this.n = n;
 		this.m = m;
+		this.costMax = cmax;
 		start = map[startx-1][starty-1];
 		printMap(map);
 	}
@@ -192,6 +193,26 @@ public class Map {
 			System.out.println();
 		}
 		return;
+	}
+
+	@Override
+	public int getN() {
+		return n;
+	}
+
+	@Override
+	public int getM() {
+		return m;
+	}
+
+	@Override
+	public int getCostMax() {
+		return costMax;
+	}
+
+	@Override
+	public IMap_node getStart() {
+		return start;
 	}
 	
 }

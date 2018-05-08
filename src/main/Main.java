@@ -26,7 +26,7 @@ public class Main {
 	    Simulation sim = null ;
 	    Map map = null;  	    
 	    PEC pec = new PEC(); 
-	    double tnow = 0.0; 
+	    int initpop = 0;
 	    
 	    try{
 	    	SAXParser saxParser = fact.newSAXParser();
@@ -37,8 +37,8 @@ public class Main {
 		    System.out.println("---------------------------");
 		    System.out.println("----------- MAP -----------"); 
 		    System.out.println("---------------------------");	
-		    sim = new Simulation(handler.finalinst, handler.maxpop, handler.initpop,handler.xfinal,handler.yfinal, handler.colsnb, handler.rowsnb, handler.cmax,handler.comfortsens,handler.dparam, handler.mparam, handler.rparam);
-		    map = new Map(handler.colsnb, handler.rowsnb, handler.getObs(), handler.getSpcost(), handler.xin, handler.yin);
+		    map = new Map(handler.colsnb, handler.rowsnb, handler.getObs(), handler.getSpcost(),  handler.cmax, handler.xin, handler.yin);
+		    sim = new Simulation(handler.finalinst, handler.maxpop,map,handler.xfinal,handler.yfinal, handler.comfortsens,handler.dparam, handler.mparam, handler.rparam);
 		    //Control prints
 		    System.out.println("---------------------------");
 		    System.out.println("------- PARSER DATA -------"); 
@@ -49,6 +49,7 @@ public class Main {
 		    System.out.println("Death param = "+sim.GetDeath());
 		    System.out.println("Reproduction param = "+sim.GetReproduction());
 		    System.out.println("Move param = "+sim.GetMove());
+		    initpop = handler.initpop;
 		    
 	    }catch(IOException e) {
 	    	System.err.println("IO error");
@@ -78,10 +79,9 @@ public class Main {
 		System.out.println("---------------------------");
 		
 		//Population initialization 
-		for(int i = 0; i<sim.getInitpop(); i++) {
-			IIndividual I = new Individual(map.start, sim);
+		for(int i = 0; i<initpop; i++) {
+			IIndividual I = new Individual(map.getStart(), sim);
 			System.out.println("Created individual number: "+(i+1)); 
-			sim.addIndividual(I);
 			pec.Add(new Death(sim, I)); 
 			pec.Add(new Reproduction(sim, I)); 
 			pec.Add(new Move(sim, I)); 
@@ -89,14 +89,10 @@ public class Main {
 		}
 		
 		pec.Add(new Observation(sim));
-		pec.Add(new Observation(sim, sim.getTmax()));
 
 		IEvent e = null, e_next = null; 
 
-		for(e = pec.Remove(); e != null && e.getTime() <= sim.getTmax(); e = pec.Remove()) {
-			tnow = e.getTime(); 
-			sim.setTnow(tnow);
-			sim.setNev(sim.getNev()+1); 
+		for(e = pec.Remove(); e != null && e.getTime() <= sim.GetTmax(); e = pec.Remove()) { 
 			e_next = e.execute();
 			if(e_next != null && !Double.isNaN(e_next.getTime()))
 				pec.Add(e_next);
