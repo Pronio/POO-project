@@ -16,7 +16,7 @@ public class Map_node implements IMap_node {
 	
 
 	@Override
-	public IMap_node nextNodeRandom(Integer cost){
+	public IMap_node nextNodeRandom(){
 		
 		int n_next = 0;
 		int nextindex;
@@ -31,12 +31,10 @@ public class Map_node implements IMap_node {
 		}
 		
 		if(n_next == 0) {
-			cost = 0;
 			return this;
 		}else {
 			
 			nextindex = active[ran.nextInt(n_next)];
-			cost = this.cost[nextindex];
 			return next[nextindex];
 		}
 

@@ -11,7 +11,7 @@ class EventInst extends Event{
 		super(t);
 	}
 	
-	public IEvent execute(){
+	public IEvent[] execute(){
 		System.out.println("Executed Event...");
 		return null;
 	}

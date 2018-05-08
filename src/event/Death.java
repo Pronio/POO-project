@@ -10,15 +10,19 @@ public class Death extends Event_Individual{
 	public Death(ISimulation sim, IIndividual individual) {
 		super(expRandom((1-Math.log(1-individual.Comfort()))*sim.GetDeath()), sim, individual);
 	} 
+	public Death(double time, ISimulation sim, IIndividual individual) {
+		super(time, sim, individual); 
+	}
 	
 	//Redefinition of the method execute() inherited from IEvent
-	public IEvent execute(){
+	public IEvent[] execute(){
 
 		//Call to the corresponding method of the individual associated with the event being executed 
 		this.individual.kill();
-
+		IEvent[] e = new IEvent[1]; 
+		e[0] = null; 
 		//Doens't return new events to be added to the PEC
-		return null; 
+		return e; 
 	}
 
 	//Redefinition of the method time() inherited from Event_Individual

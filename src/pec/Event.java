@@ -21,6 +21,6 @@ public abstract class Event implements IEvent{
 		return "Event [time=" + time + "]";
 	}
 
-	abstract public IEvent execute();
+	abstract public IEvent[] execute();
 
 }

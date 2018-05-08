@@ -14,20 +14,26 @@ public class Reproduction extends Event_Individual{
 	}
 	
 	//Redefinition of the method execute() inherited from IEvent
-	public IEvent execute(){
+	public IEvent[] execute(){
 		
 		IIndividual child;
-		
+		IEvent[] e; 
 		//Verifies if the individual has died and call to the corresponding method of the individual associated with the event being executed
 		if((child = this.individual.reproduction())!=null) {
-					
-		
-			//Returning the new move event to be added to the PEC
-			return new Reproduction(this.time(), this.sim, child); 			
+			e = new IEvent[4]; 
+			//Parent next reproduction
+			e[0] = new Reproduction(this.time(), sim, individual);
+			//Child initialization
+			e[1] = new Reproduction(this.time(), sim, child); 
+			e[2] = new Move(this.timeM(), sim, child); 
+			e[3] = new Death(this.timeD(), sim, child); 	
+
 		}
-		//Doesn't return a new event to be added to the PEC
-		else
-			return null; 
+		else {
+			e = new IEvent[1]; 
+			e[0] = null; 
+		}
+		return e;		 
 	}
 	
 
@@ -36,6 +42,16 @@ public class Reproduction extends Event_Individual{
 		double time = this.time;  
 		time = time + expRandom((1-Math.log(this.individual.Comfort()))*this.sim.GetReproduction()); 
 		return time; 
+	}
+	double timeM(){
+		double time = this.time;  
+		time = time + expRandom((1-Math.log(this.individual.Comfort()))*this.sim.GetMove()); 
+		return time;
+	}
+	double timeD(){
+		double time = this.time;  
+		time = time + expRandom((1-Math.log(1-this.individual.Comfort()))*this.sim.GetDeath()); 
+		return time;		
 	}
 	@Override
 	public String toString() {

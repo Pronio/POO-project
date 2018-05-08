@@ -6,6 +6,7 @@ import event.*;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.Arrays;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -90,12 +91,16 @@ public class Main {
 		
 		pec.Add(new Observation(sim));
 
-		IEvent e = null, e_next = null; 
+		IEvent e = null; 
+		IEvent [] e_next ; 
 
 		for(e = pec.Remove(); e != null && e.getTime() <= sim.GetTmax(); e = pec.Remove()) { 
 			e_next = e.execute();
-			if(e_next != null && !Double.isNaN(e_next.getTime()))
-				pec.Add(e_next);
+			//System.out.println("Current Event: " +e+" Next Events: "+Arrays.deepToString(e_next)); 
+			for(int i = 0; i< e_next.length; i++) {
+				if(e_next[i] != null && !Double.isNaN(e_next[i].getTime()))
+					pec.Add(e_next[i]);
+			}
 		}
 		System.exit(-1);
 	}
