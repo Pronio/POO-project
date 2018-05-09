@@ -198,6 +198,10 @@ public class Individual implements IIndividual {
 		else return -1;
 	}
 	
+	void setDeath(boolean death) {
+		this.death = death;
+	}
+
 	//para efeitos de teste
 	@Override
 	public LinkedList<IMap_node> GetPath() {

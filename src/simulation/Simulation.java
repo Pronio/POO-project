@@ -1,7 +1,9 @@
 package simulation;
 
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.ListIterator;
+import java.util.Random;
 
 import map.IMap_node;
 import map.IMap;
@@ -64,9 +66,60 @@ public class Simulation implements ISimulation {
 	}
 
 	void epidemics() {
+		LinkedList<Individual> best_five = new LinkedList<Individual>();
+		Iterator<Individual> iter = individuals.iterator();
+		Individual aux;
+		Random rnd = new Random();
 		
+		//Substituir comparações por Comparator da classe Individual
+		while(iter.hasNext()){
+			aux = iter.next();
+			if(best_five.size() < 5){
+				if(best_five.isEmpty()){
+					best_five.add(aux);
+				}
+				else{
+					int i;
+					boolean found = false;
+					for(i=0; i<best_five.size();i++){
+						if(aux.Comfort() < best_five.get(i).Comfort()){
+							found = true;
+							break;
+						}
+					}
+					if(found){
+						best_five.add(i, aux);
+					}
+					else{
+						best_five.add(aux);
+					}					
+				}
+			}
+			else{
+				if(aux.Comfort() <= best_five.get(0).Comfort()){
+					if(rnd.nextBoolean())
+						aux.setDeath(true);
+				}
+				else{
+					int i;
+					boolean found = false;
+					for(i=1; i<best_five.size(); i++){
+						if(aux.Comfort() < best_five.get(i).Comfort()){
+							found = true;
+							break;
+						}
+					}
+					if(found){
+						best_five.add(i, aux);
+					}else{
+						best_five.add(aux);
+					}
+					best_five.remove(0);
+				}
+			}
+		}
 	}
-	
+		
 	@Override
 	public String toString() {
 		return "finalinst: "+tmax+" size: "+size+" maxpop: "+maximum_individual+" comfortsens: "+comfort_param;
