@@ -104,11 +104,12 @@ public class Individual implements IIndividual {
 		
 		
 		if(hs.add(next)){
+			cost += path.getLast().getCost(next);	
 			path.addLast(next);
+			//System.out.println("MOVE: Next= "+next+" Cost to be added = "+cost);
 			length++;
-			cost += path.getLast().getCost(next);			
 			if((path.getLast().getPosX()==sim.finalx)&&(path.getLast().getPosY() == sim.finaly)) {
-				if((!sim.hit)||(sim.hit&&(sim.best_cost<this.cost))){
+				if(!(sim.hit)||(sim.hit&&(sim.best_cost>this.cost))){
 					sim.best_path= (LinkedList<IMap_node>)path.clone();
 					sim.hit = true;
 					sim.best_cost = cost;
@@ -121,14 +122,14 @@ public class Individual implements IIndividual {
 				}
 			} 
 		}else {
-			for(Iterator<IMap_node> i = path.descendingIterator();(node = i.next())==next;) {
+			for(Iterator<IMap_node> i = path.descendingIterator();(node = i.next())==next;){
 				i.remove();
 				hs.remove(node);
 				length--;
 				cost -= path.getLast().getCost(node);
 			}
 		}
-		System.out.println("New Path: "+path+" Length: "+path.size()); 
+		//System.out.println("MOVE: New Path: "+path+" Length: "+path.size()); 
 		return true;
 	}
 
@@ -147,7 +148,7 @@ public class Individual implements IIndividual {
 		HashSet<IMap_node> new_hs = new HashSet<IMap_node>();
 		
 		index_copy = (int) (Math.ceil(path.size()*(0.9+0.1*this.Comfort()))-1);
-		System.out.println("Comfort of the parent: "+this.Comfort()+" Parent path size: "+path.size()+" Index copy: "+index_copy);
+		//System.out.println("Comfort of the parent: "+this.Comfort()+" Parent path size: "+path.size()+" Index copy: "+index_copy);
 		
 		for(ListIterator<IMap_node> i = path.listIterator(); i.nextIndex() <= index_copy;) {
 			curr = i.next();
@@ -155,10 +156,11 @@ public class Individual implements IIndividual {
 			new_hs.add(curr);
 			if(prev!=null) {
 				new_cost+=prev.getCost(curr);
+				//System.out.println("New cost: "+new_cost);
 			}
 			prev = curr;
 		}
-		System.out.println("New Path: "+new_path+" Length: "+new_path.size()); 
+		//System.out.println("REPRODUCTION: New Path: "+new_path+" Length: "+new_path.size()); 
 		IIndividual child = new Individual(new_path, new_hs , this.sim, new_cost);  
 		return child;
 	}
@@ -166,7 +168,10 @@ public class Individual implements IIndividual {
 
 	@Override
 	public double Comfort(){ 
-		System.out.println("Cost: "+cost+" Length: "+length+" M: "+sim.map.getM()+" N: "+sim.map.getN());
+		/*if(cost<length) {
+			System.out.println("Cost: "+cost+" Length: "+length+" Path: "+path);
+			System.exit(-3);
+		}*/
 		return Math.pow(1-((double)(this.cost-this.length+2))/((double)(this.sim.map.getCostMax()-1)*this.length+3), this.sim.comfort_param)*
 				Math.pow(1-((double)Math.abs(this.sim.finalx - path.getLast().getPosX())+(double)Math.abs(this.sim.finaly - path.getLast().getPosY()))/
 						(double)(this.sim.map.getM()+this.sim.map.getN()+1), this.sim.comfort_param);

@@ -24,7 +24,7 @@ public class Observation extends Event_Simulation{
 		this.sim.stats(time);
 		IEvent[] e = new IEvent[1];		
 		//Checks to see if all observations have been done (meaning checks if NOBS has been met)	
-		if(this.time + this.sim.GetTmax()/NOBS<this.sim.GetTmax()) {
+		if(this.time + this.sim.GetTmax()/NOBS<=this.sim.GetTmax()) {
 			//Returns the new observation event to be added to the PEC
 			e[0] = new Observation(this.sim, this.time + this.sim.GetTmax()/NOBS); 
 			return e; 
