@@ -94,9 +94,9 @@ public class Main {
 		IEvent e = null; 
 		IEvent [] e_next ; 
 
-		for(e = pec.Remove(); e != null && e.getTime() <= sim.GetTmax(); e = pec.Remove()) { 
-			e_next = e.execute();
-			//System.out.println("Current Event: " +e+" Next Events: "+Arrays.deepToString(e_next)); 
+		for(e = pec.Remove(); e != null && e.getTime() <= sim.GetTmax(); e = pec.Remove()) {
+			//System.out.println("Current Event: " +e); 
+			e_next = e.execute(); 
 			for(int i = 0; i< e_next.length; i++) {
 				if(e_next[i] != null && !Double.isNaN(e_next[i].getTime()))
 					pec.Add(e_next[i]);

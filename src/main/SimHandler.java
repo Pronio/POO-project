@@ -94,6 +94,10 @@ public class SimHandler extends DefaultHandler {
 	    	  xin = Integer.parseInt(attr.getValue("xinitial")); 
 	    	  yin = Integer.parseInt(attr.getValue("yinitial")); 
 	      }
+	      else if(qName.equals("finalpoint")){
+	    	  xfinal = Integer.parseInt(attr.getValue("xfinal")); 
+	    	  yfinal = Integer.parseInt(attr.getValue("yfinal")); 
+	      }
 	}
 	
 	@Override

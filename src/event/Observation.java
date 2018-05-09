@@ -22,18 +22,18 @@ public class Observation extends Event_Simulation{
 		
 		//Calls the stats function that will print the state of the simulation to the console 
 		this.sim.stats(time);
-		
+		IEvent[] e = new IEvent[1];		
 		//Checks to see if all observations have been done (meaning checks if NOBS has been met)	
 		if(this.time + this.sim.GetTmax()/NOBS<this.sim.GetTmax()) {
 			//Returns the new observation event to be added to the PEC
-			IEvent[] e = new IEvent[1]; 
 			e[0] = new Observation(this.sim, this.time + this.sim.GetTmax()/NOBS); 
 			return e; 
 		}else {
 			//Calls the function finalstats because we have reached the end of the simulation
 			this.sim.finalStats();
 			//Doesn't return a new observation event to add to the PEC
-			return null; 
+			e[0] = null; 
+			return e; 
 		}
 	}
 	@Override
