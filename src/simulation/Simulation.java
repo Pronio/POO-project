@@ -114,6 +114,8 @@ public class Simulation implements ISimulation {
 					}else{
 						best_five.add(aux);
 					}
+					if(rnd.nextBoolean())
+						best_five.get(0).setDeath(true);
 					best_five.remove(0);
 				}
 			}
