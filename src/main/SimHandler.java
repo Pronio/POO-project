@@ -1,6 +1,7 @@
 package main;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
+import org.xml.sax.SAXParseException;
 import org.xml.sax.helpers.DefaultHandler;
 
 import map.Obstacles;
@@ -110,6 +111,16 @@ public class SimHandler extends DefaultHandler {
 			nsp--; 
 			fzone = false; 
 		}
+	}
+	
+	@Override
+	public void error(SAXParseException arg0) throws SAXException {
+		
+	}
+	
+	@Override
+	public void fatalError(SAXParseException arg0) throws SAXException {
+		
 	}
 
 }

@@ -104,7 +104,7 @@ public class Simulation implements ISimulation {
 			}
 			else{
 				if(aux.Comfort() <= best_five.get(0).Comfort()){
-					if(rnd.nextBoolean()){
+					if(rnd.nextDouble() > aux.Comfort()){
 						aux.setDeath(true);
 						iter.remove();
 						size--; 
@@ -126,7 +126,7 @@ public class Simulation implements ISimulation {
 						best_five.add(aux);
 						iter.remove();
 					}
-					if(rnd.nextBoolean()) {
+					if(rnd.nextDouble() > best_five.get(0).Comfort()) {
 						best_five.get(0).setDeath(true);
 						size--;
 						best_five.remove(0);
