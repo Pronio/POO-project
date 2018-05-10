@@ -6,7 +6,6 @@ import event.*;
 
 import java.io.File;
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.Arrays;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -33,23 +32,9 @@ public class Main {
 	    	SAXParser saxParser = fact.newSAXParser();
 		    //Parse the XML document to this handler
 		    SimHandler handler = new SimHandler(); 
-		    saxParser.parse(new File(args[0]), handler);
-		    //Getting the objects stored in the parser handler 
-		    System.out.println("---------------------------");
-		    System.out.println("----------- MAP -----------"); 
-		    System.out.println("---------------------------");	
+		    saxParser.parse(new File(args[0]), handler);		    
 		    map = new Map(handler.colsnb, handler.rowsnb, handler.getObs(), handler.getSpcost(),  handler.cmax, handler.xin, handler.yin);
 		    sim = new Simulation(handler.finalinst, handler.maxpop,map,handler.xfinal,handler.yfinal, handler.comfortsens,handler.dparam, handler.mparam, handler.rparam);
-		    //Control prints
-		    System.out.println("---------------------------");
-		    System.out.println("------- PARSER DATA -------"); 
-		    System.out.println("---------------------------");
-		    System.out.println("Simulation: "+sim.toString()); 
-		    System.out.println("Spetial Cost Zones: "+ Arrays.deepToString(handler.getSpcost()));
-		    System.out.println("Obstacles: "+ Arrays.deepToString(handler.getObs()));
-		    System.out.println("Death param = "+sim.GetDeath());
-		    System.out.println("Reproduction param = "+sim.GetReproduction());
-		    System.out.println("Move param = "+sim.GetMove());
 		    initpop = handler.initpop;
 		    
 	    }catch(IOException e) {
@@ -74,15 +59,11 @@ public class Main {
 	    	System.err.println("Negative array size error");
 	    	System.exit(1);
 	    }
-	
-		System.out.println("---------------------------");
-		System.out.println("----------- PEC -----------");
-		System.out.println("---------------------------");
+
 		
 		//Population initialization 
 		for(int i = 0; i<initpop; i++) {
 			IIndividual I = new Individual(map.getStart(), sim);
-			System.out.println("Created individual number: "+(i+1)); 
 			pec.Add(new Death(sim, I)); 
 			pec.Add(new Reproduction(sim, I)); 
 			pec.Add(new Move(sim, I)); 
@@ -95,7 +76,6 @@ public class Main {
 		IEvent [] e_next ; 
 
 		for(e = pec.Remove(); e != null && e.getTime() <= sim.GetTmax(); e = pec.Remove()) {
-			//System.out.println("Current Event: " +e); 
 			e_next = e.execute(); 
 			for(int i = 0; i< e_next.length; i++) {
 				if(e_next[i] != null && !Double.isNaN(e_next[i].getTime()))

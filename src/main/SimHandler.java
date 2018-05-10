@@ -15,7 +15,7 @@ public class SimHandler extends DefaultHandler {
 	//Number of Special Cost Zones and Obstacles
 	int nsp = 0, nobs = 0; 
 	//Events parameters 
-	int dparam = 0, rparam = 0, mparam = 0, cost = 0; 
+	int dparam = 0, rparam = 0, mparam = 0, cost = Integer.MAX_VALUE; 
 	//Simulation parameters 
 	int maxpop, comfortsens, initpop, finalinst; 
 	//Grid parameters 
@@ -57,8 +57,8 @@ public class SimHandler extends DefaultHandler {
     	  }
 	      else if (qName.equalsIgnoreCase("specialcostzones")) {
 	    	  //fspcost = true; 
-	    	  nsp = Integer.parseInt(attr.getValue("num")); 
-	    	  spcost = new SpecialCostZones[nsp]; 
+	    	  nsp = Integer.parseInt(attr.getValue("num"));  
+	    	  spcost = new SpecialCostZones[nsp];
 	    	  nsp--; 
 	      }
 	      else if (qName.equalsIgnoreCase("zone")){
@@ -114,16 +114,25 @@ public class SimHandler extends DefaultHandler {
 	}
 	
 	@Override
-	public void error(SAXParseException e) throws SAXException {
-		System.err.println("XML file is not correctly formed. " +e.getMessage());
+	public void error(SAXParseException e) throws SAXException{
+		System.err.println("XML file is not correctly formed. "+e.getMessage());
 		System.exit(1);
-		
 	}
-	
 	@Override
-	public void fatalError(SAXParseException e) throws SAXException {
+	public void fatalError(SAXParseException e) throws SAXException{
 		System.err.println("XML file is not correctly formed. "+e.getMessage());
 		System.exit(1);		
+	}
+	@Override
+	public void endElement(String uri, String localName, String qName) throws SAXException {
+		if(qName.equals("zone")) {
+			if(cost == Integer.MAX_VALUE) {
+				System.err.println("Special cost zone with a non specified cost.");
+				System.exit(1);
+			}
+				
+		}
+		
 	}
 
 }
