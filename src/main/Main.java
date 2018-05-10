@@ -33,7 +33,7 @@ public class Main {
 	    	SAXParser saxParser = fact.newSAXParser();
 		    //Parse the XML document to this handler
 		    SimHandler handler = new SimHandler(); 
-		    saxParser.parse(new File("src/data1.xml"), handler);
+		    saxParser.parse(new File(args[0]), handler);
 		    //Getting the objects stored in the parser handler 
 		    System.out.println("---------------------------");
 		    System.out.println("----------- MAP -----------"); 
