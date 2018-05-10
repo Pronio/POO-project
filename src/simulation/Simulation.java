@@ -65,6 +65,9 @@ public class Simulation implements ISimulation {
 		return reproduction_param;
 	}
 
+	/**
+	 * This method is used to
+	 */
 	void epidemics() {
 		LinkedList<Individual> best_five = new LinkedList<Individual>();
 		Iterator<Individual> iter = individuals.iterator();
