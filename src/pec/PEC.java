@@ -1,6 +1,9 @@
 package pec;
 
 import java.util.LinkedList;
+import java.util.ListIterator;
+
+import simulation.Individual;
 
 /**
  * PEC class that holds the collection of events.
@@ -24,19 +27,17 @@ public class PEC implements IPEC{
 		if(eventList.isEmpty()){
 			eventList.add(e);
 		}else{
-			int i;
 			boolean found = false;
 			//Change to ListIterator
-			for(i=0; i<eventList.size(); i++){
-				if(e.compareTo(eventList.get(i)) < 0){
+			for(ListIterator<IEvent> i = eventList.listIterator(); i.hasNext();){
+				if(e.compareTo(i.next()) < 0){
+					i.previous();
+					i.add(e);
 					found = true;
 					break;
 				}
 			}
-			if(found == true){
-				eventList.add(i, e);
-			}
-			else{
+			if(found == false){
 				eventList.add(e);
 			}
 		}
