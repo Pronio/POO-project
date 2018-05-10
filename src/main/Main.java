@@ -102,6 +102,6 @@ public class Main {
 					pec.Add(e_next[i]);
 			}
 		}
-		System.exit(-1);
+		System.exit(0);
 	}
 }

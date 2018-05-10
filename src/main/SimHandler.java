@@ -114,13 +114,16 @@ public class SimHandler extends DefaultHandler {
 	}
 	
 	@Override
-	public void error(SAXParseException arg0) throws SAXException {
+	public void error(SAXParseException e) throws SAXException {
+		System.err.println("XML file is not correctly formed. " +e.getMessage());
+		System.exit(1);
 		
 	}
 	
 	@Override
-	public void fatalError(SAXParseException arg0) throws SAXException {
-		
+	public void fatalError(SAXParseException e) throws SAXException {
+		System.err.println("XML file is not correctly formed. "+e.getMessage());
+		System.exit(1);		
 	}
 
 }
