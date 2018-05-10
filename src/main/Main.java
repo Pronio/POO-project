@@ -6,7 +6,6 @@ import event.*;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Arrays;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
@@ -67,7 +66,6 @@ public class Main {
 			pec.Add(new Death(sim, I)); 
 			pec.Add(new Reproduction(sim, I)); 
 			pec.Add(new Move(sim, I)); 
-			
 		}
 		
 		pec.Add(new Observation(sim));
