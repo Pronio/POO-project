@@ -120,7 +120,10 @@ public class Simulation implements ISimulation {
 	}
 
 	/**
-	 * This method is used to
+	 * Reduce the population based on an individual survival probability
+	 * given by its comfort. This method is called whenever the population size surpasses
+	 * a certain limit.
+	 * 
 	 */
 	void epidemics() {
 		
