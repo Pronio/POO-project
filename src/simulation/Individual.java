@@ -192,12 +192,13 @@ public class Individual implements IIndividual {
 		sim.nev++;
 		this.death = true; 
 		this.sim.individuals.remove(this);
+		sim.size--;
 		return;
 	}
 	
 	public int compareTo(IIndividual i){
-		if(this.Comfort() > ((IIndividual)i).Comfort()) return 1;
-		else if(this.Comfort() == ((IIndividual)i).Comfort()) return 0;
+		if(this.Comfort() > i.Comfort()) return 1;
+		else if(this.Comfort() == i.Comfort()) return 0;
 		else return -1;
 	}
 	
