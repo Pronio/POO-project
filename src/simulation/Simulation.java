@@ -100,8 +100,11 @@ public class Simulation implements ISimulation {
 			}
 			else{
 				if(aux.Comfort() <= best_five.get(0).Comfort()){
-					if(rnd.nextBoolean())
+					if(rnd.nextBoolean()){
 						aux.setDeath(true);
+						iter.remove();
+						size--; 
+					}
 				}
 				else{
 					int i;
@@ -117,12 +120,15 @@ public class Simulation implements ISimulation {
 					}else{
 						best_five.add(aux);
 					}
-					if(rnd.nextBoolean())
+					if(rnd.nextBoolean()) {
 						best_five.get(0).setDeath(true);
+						iter.remove();
+						size--; 
+					}
 					best_five.remove(0);
 				}
 			}
-		}
+		}		
 	}
 		
 	@Override

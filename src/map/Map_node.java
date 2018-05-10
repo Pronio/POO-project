@@ -1,5 +1,6 @@
 package map;
 
+import java.util.Arrays;
 import java.util.Random;
 
 public class Map_node implements IMap_node {
@@ -58,6 +59,9 @@ public class Map_node implements IMap_node {
 
 	@Override
 	public int getCost(IMap_node node) {
+		
+		//System.out.println("Actual: ("+x+","+y+") Next: ("+node.getPosX()+","+node.getPosY()+")");
+		//System.out.println("Custos adjacentes: " + Arrays.deepToString(cost));
 		
 			if( this.x == ((Map_node)node).x) {
 				
