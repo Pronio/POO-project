@@ -44,7 +44,8 @@ public class PEC implements IPEC{
 	
 	/**
 	 * Calls remove method from LinkedList class with argument 0
-	 * @return the IEvent at the first position of the LinkedList
+	 * @return the IEvent at the first position of the LinkedList,
+	 * 			or null if the list is empty
 	 */
 	public IEvent Remove(){
 		//System.out.println("Removing: "+eventList.getFirst().toString());
