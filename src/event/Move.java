@@ -13,7 +13,7 @@ import simulation.ISimulation;
  * </ul>
  * @author Marta Marques (80882) 
  * @author Pedro Direita (81305)
- * @author José Heraldo ()
+ * @author José Heraldo (82414)
  */
 public class Move extends Event_Individual{
 

@@ -6,7 +6,6 @@ import event.*;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Arrays;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
