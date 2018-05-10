@@ -120,7 +120,7 @@ public class Simulation implements ISimulation {
 	}
 
 	/**
-	 * Reduce the population based on an individual survival probability
+	 * Reduce the population (list of individuals) based on an individual survival probability
 	 * given by its comfort. This method is called whenever the population size surpasses
 	 * a certain limit.
 	 * 
