@@ -69,33 +69,37 @@ public class Simulation implements ISimulation {
 	 * This method is used to
 	 */
 	void epidemics() {
+		//System.out.println("Epidemia Inicio: "+size + "Tamanho da lista: "+individuals.size());
+		
 		LinkedList<Individual> best_five = new LinkedList<Individual>();
-		Iterator<Individual> iter = individuals.iterator();
+		ListIterator<Individual> iter = individuals.listIterator();
 		Individual aux;
+		Individual bf_individual;
 		Random rnd = new Random();
 		
-		//Substituir comparações por Comparator da classe Individual
 		while(iter.hasNext()){
 			aux = iter.next();
 			if(best_five.size() < 5){
 				if(best_five.isEmpty()){
 					best_five.add(aux);
+					iter.remove();
 				}
 				else{
-					int i;
 					boolean found = false;
-					for(i=0; i<best_five.size();i++){
-						if(aux.Comfort() < best_five.get(i).Comfort()){
-							found = true;
+					for(ListIterator<Individual> i = best_five.listIterator(); i.hasNext();){
+						bf_individual = i.next();
+						if(aux.Comfort() < bf_individual.Comfort()){
+							i.previous();
+							i.add(aux);
+							iter.remove();
+							found=true;
 							break;
 						}
 					}
-					if(found){
-						best_five.add(i, aux);
-					}
-					else{
+					if(!found){
 						best_five.add(aux);
-					}					
+						iter.remove();
+					}			
 				}
 			}
 			else{
@@ -107,28 +111,38 @@ public class Simulation implements ISimulation {
 					}
 				}
 				else{
-					int i;
 					boolean found = false;
-					for(i=1; i<best_five.size(); i++){
-						if(aux.Comfort() < best_five.get(i).Comfort()){
+					for(ListIterator<Individual> i = best_five.listIterator(); i.hasNext();){
+						bf_individual = i.next();
+						if(aux.Comfort() < bf_individual.Comfort()){
+							i.previous();
+							i.add(aux);
+							iter.remove();
 							found = true;
 							break;
 						}
 					}
-					if(found){
-						best_five.add(i, aux);
-					}else{
+					if(!found){
 						best_five.add(aux);
+						iter.remove();
 					}
 					if(rnd.nextBoolean()) {
 						best_five.get(0).setDeath(true);
-						iter.remove();
-						size--; 
+						size--;
+						best_five.remove(0);
+					}else {
+						iter.add(best_five.get(0));
+						best_five.remove(0);
 					}
-					best_five.remove(0);
 				}
 			}
-		}		
+		}
+		
+		for(ListIterator<Individual> i = best_five.listIterator(); i.hasNext();){
+			bf_individual = i.next();
+			individuals.addFirst(bf_individual);
+		}
+		//System.out.println("	Epidemia quantos sobraram: "+size + "Tamanho da lista: "+individuals.size());
 	}
 		
 	@Override
