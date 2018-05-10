@@ -1,11 +1,8 @@
 package simulation;
 
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.ListIterator;
 import java.util.Random;
-
-import map.IMap_node;
 import map.IMap;
 
 public class Simulation implements ISimulation {
@@ -14,7 +11,7 @@ public class Simulation implements ISimulation {
 	int size, nobs, nev;
 	boolean hit;
 	
-	LinkedList<IMap_node> best_path;
+	LinkedList<?> best_path;
 	LinkedList<Individual> individuals = new LinkedList<Individual>();
 	
 	final IMap map;
@@ -25,7 +22,7 @@ public class Simulation implements ISimulation {
 	public void finalStats() {
 		System.out.print("Path of the best fit individual = {");
 		
-		for(ListIterator<IMap_node> i = best_path.listIterator(); i.hasNext();) {
+		for(ListIterator<?> i = best_path.listIterator(); i.hasNext();) {
 			System.out.print(i.next());
 			if(i.nextIndex() != best_path.size()) {
 				System.out.print(",");

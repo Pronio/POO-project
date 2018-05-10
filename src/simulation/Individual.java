@@ -1,7 +1,6 @@
 package simulation;
 
 import map.IMap_node;
-import map.IMap;
 
 import java.util.HashSet;
 import java.util.Iterator;
@@ -37,13 +36,13 @@ public class Individual implements IIndividual {
 		
 		if((path.getLast().getPosX()==sim.finalx)&&(path.getLast().getPosY() == sim.finaly)) {
 			if(!((sim.hit)&&(sim.best_cost<=cost))) {
-				sim.best_path= (LinkedList<IMap_node>)path.clone();
+				sim.best_path= (LinkedList<?>)path.clone();
 				sim.hit = true;
 				sim.best_cost = cost;
 			}
 		}else {
 			if((!(sim.hit))&&(sim.best_cost<(conf=this.Comfort()))) {
-				sim.best_path= (LinkedList<IMap_node>)path.clone();
+				sim.best_path= (LinkedList<?>)path.clone();
 				sim.hit = false;
 				sim.best_cost = conf;
 			}
@@ -70,13 +69,13 @@ public class Individual implements IIndividual {
 		
 		if((path.getLast().getPosX()==sim.finalx)&&(path.getLast().getPosY() == sim.finaly)) {
 			if(!((sim.hit)&&(sim.best_cost<=cost))) {
-				sim.best_path= (LinkedList<IMap_node>)path.clone();
+				sim.best_path= (LinkedList<?>)path.clone();
 				sim.hit = true;
 				sim.best_cost = cost;
 			}
 		}else {
 			if((!(sim.hit))&&(sim.best_cost<(conf=this.Comfort()))) {
-				sim.best_path= (LinkedList<IMap_node>)path.clone();
+				sim.best_path= (LinkedList<?>)path.clone();
 				sim.hit = false;
 				sim.best_cost = conf;
 			}
@@ -110,13 +109,13 @@ public class Individual implements IIndividual {
 			length++;
 			if((path.getLast().getPosX()==sim.finalx)&&(path.getLast().getPosY() == sim.finaly)) {
 				if(!(sim.hit)||(sim.hit&&(sim.best_cost>this.cost))){
-					sim.best_path= (LinkedList<IMap_node>)path.clone();
+					sim.best_path= (LinkedList<?>)path.clone();
 					sim.hit = true;
 					sim.best_cost = cost;
 				}
 			}else {
 				if((!(sim.hit))&&(sim.best_cost<(conf=this.Comfort()))) {
-					sim.best_path= (LinkedList<IMap_node>)path.clone();
+					sim.best_path= (LinkedList<?>)path.clone();
 					sim.hit = false;
 					sim.best_cost = conf;
 				}

@@ -3,7 +3,6 @@ package pec;
 import java.util.LinkedList;
 import java.util.ListIterator;
 
-import simulation.Individual;
 
 /**
  * PEC class that holds the collection of events.
