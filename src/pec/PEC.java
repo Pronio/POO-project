@@ -6,8 +6,10 @@ import java.util.ListIterator;
 
 /**
  * PEC class that holds the collection of events.
- * The collection is represented by a LinkedList.
- *
+ * The collection of events is represented by a LinkedList of events.
+ * The events are sorted in the linked list. The sorting is maintained
+ * by doing an ordered insertion in the linked list. 
+ * 
  */
 public class PEC implements IPEC{
 	

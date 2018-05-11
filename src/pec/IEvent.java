@@ -4,7 +4,7 @@ package pec;
  * Interface representing the contract to be used
  * by classes of other packages to interact
  * with a general event. Assumes that a variable
- * representing the time-stamp is added
+ * representing the time stamp is added
  * in inheriting classes
  *
  */
@@ -17,8 +17,8 @@ public interface IEvent extends Comparable<IEvent>{
 	public IEvent[] execute();
 	
 	/**
-	 * Get the time-stamp variable
-	 * @return the variable representing the time-stamp  
+	 * Get the time stamp variable
+	 * @return the variable representing the time stamp  
 	 */
 	public double getTime(); 
 }
