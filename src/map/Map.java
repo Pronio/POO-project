@@ -1,9 +1,33 @@
 package map;
 
+/**
+ * Map implements IMap. This implementation uses an object for each map_node connected with his neighbors forming a grid of adjacent nodes. This Map only stores the nodes that are reachable, and gives an association
+ * only to a single node of the map (the start node), every node that isn't reachable form the start node is considered unreachable and deleted. Map uses the following fields:
+ * <ul>
+ * <li> n - number of columns of the map
+ * <li> m - number of rows of the map
+ * <li> costMax - maximum cost possible of an edge of this map
+ * <li> start - Start node of the map
+ * </ul>
+ * @author Marta Marques (80882) 
+ * @author Pedro Direita (81305)
+ * @author Jose Fernandes (82414)
+ */
 public class Map implements IMap{
 	private final int n, m, costMax;
 	private final Map_node start;
 
+	
+	/**
+	 * Class Map constructor to be called when we want to start a new map.
+	 * @param n number of columns of the map.
+	 * @param m number of rows of the map.
+	 * @param obs Array with obstacles to be included in the map.
+	 * @param spz Array with special cost zones to be included in the map.
+	 * @param cmax Maximum cost possible of an edge of this map
+	 * @param startx X coordinate of the start point
+	 * @param starty Y coordinate of the start point
+	 */
 	public Map(int n, int m, Obstacles[] obs, SpecialCostZones[] spz,int cmax ,int startx, int starty) {
 		
 		//Create a matrix with the size of the map
@@ -43,7 +67,7 @@ public class Map implements IMap{
 				
 				//Verify if the special cost zone is inside the map
 				if((spz[i].xinitial > n) || (spz[i].yinitial > m) || (spz[i].xfinal > n) || (spz[i].yfinal > m)) {
-					System.out.println("Error: A declared special cost zone is out of the map");
+					System.err.println("Error: A declared special cost zone is out of the map");
 					System.exit(1);
 				}
 			
@@ -109,9 +133,14 @@ public class Map implements IMap{
 				
 				//Verify if the obstacle is inside the map
 				if((obs[i].x > n) || (obs[i].y > m)) {
-					System.out.println("Error: A declared obstacle is out of the map");
+					System.err.println("Error: A declared obstacle is out of the map");
 					System.exit(1);
 				}
+				if((obs[i].x == startx) && (obs[i].y == starty)) {
+					System.err.println("Error: The inicial Point is an obstacle");
+					System.exit(1);
+				}
+				
 				
 				//Convert from the notation where the lowest coordinate is (1,1) to the notation where the lowest coordinate is (0,0)
 				int obsx = obs[i].x-1;
@@ -148,68 +177,39 @@ public class Map implements IMap{
 		this.m = m;
 		this.costMax = cmax;
 		start = map[startx-1][starty-1];
-		printMap(map);
 	}
 	
-	public void printMap(Map_node[][] map) {
-		
-		for(int j=m-1; j>=0;j--) {
-			for(int i=0; i<n; i++) {
-				System.out.print(" ");
-				
-
-				System.out.print(map[i][j].cost[3]);
-
-				
-				System.out.print(" ");
-			}
-			System.out.println();
-			for(int i=0; i<n; i++) {
-				
-		
-				System.out.print(map[i][j].cost[0]);
-
-				
-				if(!((map[i][j].next[0]==null)&&(map[i][j].next[1]==null)&&(map[i][j].next[2]==null)&&(map[i][j].next[3]==null))) {
-					System.out.print("+");
-				}else {
-					System.out.print("x");
-				}
-				
-				System.out.print(map[i][j].cost[2]);
-
-
-			}
-			System.out.println();
-			for(int i=0; i<n; i++) {
-				System.out.print(" ");
-				
-	
-				System.out.print(map[i][j].cost[1]);
-
-
-				System.out.print(" ");
-			}
-			System.out.println();
-		}
-		return;
-	}
-
+	/**
+	 * Get the number of columns of the map
+	 * @return Number of columns of the map
+	 */
 	@Override
 	public int getN() {
 		return n;
 	}
 
+	/**
+	 * Get the number of rows of the map
+	 * @return Number of rows of the map
+	 */
 	@Override
 	public int getM() {
 		return m;
 	}
 
+	/**
+	 * Get the maximum cost possible of an edge of this map
+	 * @return Maximum cost of an edge
+	 */
 	@Override
 	public int getCostMax() {
 		return costMax;
 	}
 
+	/**
+	 * Get the start point of the map, usually used in simulations to point where the simulation is going to start
+	 * @return Start Node of the map
+	 */
 	@Override
 	public IMap_node getStart() {
 		return start;

@@ -5,7 +5,7 @@ package simulation;
  * that define the behavior of the simulation  
  * @author Marta Marques (80882) 
  * @author Pedro Direita (81305)
- * @author José Heraldo (82414)
+ * @author Jose Fernades (82414)
  */
 public interface ISimulation {
 

@@ -27,7 +27,7 @@ import map.IMap;
  * </ul>
  * @author Marta Marques (80882) 
  * @author Pedro Direita (81305)
- * @author José Heraldo (82414)
+ * @author Jose Fernandes (82414)
  */
 public class Simulation implements ISimulation {
 	

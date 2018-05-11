@@ -21,7 +21,7 @@ import java.util.ListIterator;
  * </ul>
  * @author Marta Marques (80882) 
  * @author Pedro Direita (81305)
- * @author José Heraldo (82414)
+ * @author Jose Fernandes (82414)
  */
 public class Individual implements IIndividual {
 	
@@ -31,7 +31,12 @@ public class Individual implements IIndividual {
 	HashSet<IMap_node> hs = null;
 	Simulation sim = null; 
 	
-	//Constructor
+	/**
+	 * This class Individual constructor is used to generate a new individual, with only one node in its path, its generally used to
+	 * populate the simulation in the beginning 
+	 * @param start Map node (map location) where this individual has born and started is progress.
+	 * @param sim Simulation where this individual is added, an individual cannot exist alone, an individual is always part of a simulation 
+	 */
 	public Individual (IMap_node start, Simulation sim){
 		
 		LinkedList<IMap_node> path = new LinkedList<IMap_node>();
@@ -71,6 +76,13 @@ public class Individual implements IIndividual {
 			sim.epidemics();
 	}
 	
+	/**
+	 * This class Individual constructor is generally used to generate a new Individual from a parent
+	 * @param path Is a linkedList with the path of the new individual usually a part of the parent path
+	 * @param hs HashSet containing all the map nodes in the linkedList path, the HashSet is used for performance improvement 
+	 * @param sim Simulation where this individual is added, an individual cannot exist alone, an individual is always part of a simulation
+	 * @param cost Cost of the initial path given to this individual by its parent
+	 */
 	public Individual(LinkedList<IMap_node> path, HashSet<IMap_node> hs,Simulation sim, int cost) {
 		
 		this.hs = hs;
@@ -104,6 +116,11 @@ public class Individual implements IIndividual {
 			sim.epidemics();
 	}
 
+	
+	/**
+	 * Moves the individual to an adjacent position, and avoids loops in its path
+	 * @return true if the move was successful, false if the individual is already death
+	 */
 	@Override
 	public boolean move(){
 		IMap_node next, node;
@@ -148,6 +165,11 @@ public class Individual implements IIndividual {
 		return true;
 	}
 
+	/**
+	 * Generate a new individual, based on a parent individual, this new individual shares part of its path with his parent, the
+	 * percentage of path inherited is calculated based on the parent comfort
+	 * @return The newly generated individual 
+	 */
 	@Override
 	public IIndividual reproduction(){
 		
@@ -180,7 +202,11 @@ public class Individual implements IIndividual {
 		return child;
 	}
 	
-
+	/**
+	 * Calculate the individual comfort based on the map dimensions and characteristics, simulation characteristics, and path taken
+	 * by the individual  
+	 * @return Value of comfort
+	 */
 	@Override
 	public double Comfort(){ 
 		/*if(cost<length) {
@@ -192,11 +218,19 @@ public class Individual implements IIndividual {
 						(double)(this.sim.map.getM()+this.sim.map.getN()+1), this.sim.comfort_param);
 	}
 	
+	/**
+	 * Prints out if the individual is death or alive
+	 * @return String describing the individual
+	 */
 	@Override
 	public String toString() {
 		return " is "+ (death? "dead": "alive");
 		//return "comfort= "+this.Comfort()+" cost="+cost+", length="+length+", death="+death+", path="+path;
 	}
+	
+	/**
+	 * Kills the Individual, this is made by changing the flag death to true and removing it from the individuals list inside the simulation associated with this individual
+	 */
 	@Override
 	public void kill(){
 		
@@ -210,13 +244,10 @@ public class Individual implements IIndividual {
 		sim.size--;
 		return;
 	}
-	
-	public int compareTo(IIndividual i){
-		if(this.Comfort() > i.Comfort()) return 1;
-		else if(this.Comfort() == i.Comfort()) return 0;
-		else return -1;
-	}
-	
+
+	/**
+	 * Setter used to set the flag death, one of the properties of the individual to true, this is used by the simulation epidemics
+	 */
 	void setDeath(boolean death) {
 		this.death = death;
 	}

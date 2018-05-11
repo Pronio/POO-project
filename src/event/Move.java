@@ -13,14 +13,12 @@ import simulation.ISimulation;
  * </ul>
  * @author Marta Marques (80882) 
  * @author Pedro Direita (81305)
- * @author José Heraldo (82414)
+ * @author Jose Fernandes (82414)
  */
 public class Move extends Event_Individual{
-
 	/**
 	 * Class Move constructor to be called when the event is created in simulation time 0.
-	 * @param sim 
-	 * Simulation in which the event was created.
+	 * @param sim Simulation in which the event was created.
 	 * @param individual Individual that is going to execute the event.
 	 */
 	public Move(ISimulation sim, IIndividual individual) {
@@ -28,6 +26,7 @@ public class Move extends Event_Individual{
 	}
 	/**
 	 * Class Move constructor to be called at a given time in the simulation.
+	 * @param time Time in which the event will occur.
 	 * @param sim 
 	 * Simulation in which the event was created.
 	 * @param individual Individual that is going to execute the event.
@@ -37,7 +36,8 @@ public class Move extends Event_Individual{
 	}
 
 	/**
-	 * Redefinition of the method execute() inherited from the abstract class Event.
+	 * Redefinition of the method execute() inherited from the abstract class Event. Creates a new Move event to be added to the PEC and 
+	 * calls the corresponding individual {@linkplain simulation.Individual#move() method}.
 	 * @return IEvent[] Returns a list of events to be executed next and null if the individual executing the Move event has already died. 
 	 */
 	public IEvent[] execute(){
@@ -54,17 +54,13 @@ public class Move extends Event_Individual{
 	}
 	
 	/**
-	 * Redefinition of the method time() inherited from Event_Individual.
-	 * @return
+	 * Redefinition of the method time() inherited from Event_Individual. Adds to the attribute time of the individual calling this method 
+	 * a new time defined by an exponential distribution of mean value (1 - log(comfort))*move_parameter.
+	 * @return double Returns the corresponding time of the next move event.
 	 */
 	double time(){
 		double time = this.time;  
 		time = time + expRandom((1-Math.log(this.individual.Comfort()))*this.sim.GetMove()); 
 		return time; 
 	}
-	@Override
-	public String toString() {
-		return "Move: [time=" + this.time + "] Individual: "+this.individual;
-	}
-
 }
