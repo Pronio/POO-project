@@ -196,11 +196,6 @@ public class Simulation implements ISimulation {
 			individuals.addFirst(bf_individual);
 		}
 	}
-		
-	@Override
-	public String toString() {
-		return "finalinst: "+tmax+" size: "+size+" maxpop: "+maximum_individual+" comfortsens: "+comfort_param;
-	} 
 	
 	/**
 	 * Class Simulation constructor to be called when we want to start a new simulation.
