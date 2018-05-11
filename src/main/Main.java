@@ -1,5 +1,6 @@
 package main;
 import map.*; 
+
 import simulation.*;
 import pec.*; 
 import event.*; 
@@ -12,9 +13,31 @@ import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
 import org.xml.sax.SAXException;
-
+/**
+ * Main is the class that contains the main method.
+ * <ul>
+ * <li> The time of the event;
+ * <li> The Individual associated with the event;
+ * <li> The simulation in which the event was generated.
+ * </ul>
+ * @author Marta Marques (80882) 
+ * @author Pedro Direita (81305)
+ * @author Jose Fernandes (82414)
+ */
 public class Main {
-
+	/**
+	 * This method receives a string as input that is the 
+	 * path to the XML file that will be simulated. This method uses the SAX parser in order to read said XML 
+	 * file. This method contains: 
+	 * <li>A Simulation object that is the simulation being executed; 
+	 * <li>A Map object that is created based on the XML input file and with the SAX parser; 
+	 * <li>A PEC (Pending Event Container) object that stores the events to be executed next; 
+	 * <li>A initial population value in order to initialize the simulation and create said population (individuals); 
+	 * <li>A auxiliary array of events to be added to the PEC in each iteration of the program.
+	 * 
+	 * @param args Relative path of the XML input file.
+	 * @throws Exception
+	 */
 	public static void main(String[] args) throws Exception{
 		
 		//Builds a SAX parser factory
@@ -71,7 +94,6 @@ public class Main {
 			pec.Add(new Death(sim, I)); 
 			pec.Add(new Reproduction(sim, I)); 
 			pec.Add(new Move(sim, I)); 
-			
 		}
 		
 		pec.Add(new Observation(sim));

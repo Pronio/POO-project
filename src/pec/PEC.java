@@ -19,7 +19,8 @@ public class PEC implements IPEC{
 	
 	/**
 	 * Ordered insertion in LinkedList.
-	 * Uses add method from LinkedList to insert.
+	 * Uses add method from LinkedList to insert and 
+	 * listIterator to iterate through the list.
 	 */
 	public void Add(IEvent e){
 		//System.out.println("Adding: "+e.toString()); 
