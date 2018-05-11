@@ -1,13 +1,28 @@
 package simulation;
 
 import map.IMap_node;
-import map.IMap;
 
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.ListIterator;
 
+/**
+ * Individual is the class that implements IIndividual interface, it overrides the interface methods stating how the actions should be delivered, each
+ * new individual is an instance of this class described by:
+ * <ul>
+ * <li> cost - Accumulated cost by traveling along the map, since each edge has a cost of transversing associated;
+ * <li> length - Number of edges traveled by this individual;
+ * <li> death - Boolean value that indicates if the individual is already death or not 
+ * <li> path - Map nodes transversed by this individual
+ * <li> hs - HashSet used to store the Map nodes already transversed by this individual in this way the program could know efficiently if a node is already
+ * on the list or not, saving time compared to searching all the list 
+ * <li> sim - simulation associated with this individual  
+ * </ul>
+ * @author Marta Marques (80882) 
+ * @author Pedro Direita (81305)
+ * @author José Heraldo (82414)
+ */
 public class Individual implements IIndividual {
 	
 	private int cost , length; 
@@ -37,13 +52,13 @@ public class Individual implements IIndividual {
 		
 		if((path.getLast().getPosX()==sim.finalx)&&(path.getLast().getPosY() == sim.finaly)) {
 			if(!((sim.hit)&&(sim.best_cost<=cost))) {
-				sim.best_path= (LinkedList<IMap_node>)path.clone();
+				sim.best_path= (LinkedList<?>)path.clone();
 				sim.hit = true;
 				sim.best_cost = cost;
 			}
 		}else {
 			if((!(sim.hit))&&(sim.best_cost<(conf=this.Comfort()))) {
-				sim.best_path= (LinkedList<IMap_node>)path.clone();
+				sim.best_path= (LinkedList<?>)path.clone();
 				sim.hit = false;
 				sim.best_cost = conf;
 			}
@@ -70,13 +85,13 @@ public class Individual implements IIndividual {
 		
 		if((path.getLast().getPosX()==sim.finalx)&&(path.getLast().getPosY() == sim.finaly)) {
 			if(!((sim.hit)&&(sim.best_cost<=cost))) {
-				sim.best_path= (LinkedList<IMap_node>)path.clone();
+				sim.best_path= (LinkedList<?>)path.clone();
 				sim.hit = true;
 				sim.best_cost = cost;
 			}
 		}else {
 			if((!(sim.hit))&&(sim.best_cost<(conf=this.Comfort()))) {
-				sim.best_path= (LinkedList<IMap_node>)path.clone();
+				sim.best_path= (LinkedList<?>)path.clone();
 				sim.hit = false;
 				sim.best_cost = conf;
 			}
@@ -110,13 +125,13 @@ public class Individual implements IIndividual {
 			length++;
 			if((path.getLast().getPosX()==sim.finalx)&&(path.getLast().getPosY() == sim.finaly)) {
 				if(!(sim.hit)||(sim.hit&&(sim.best_cost>this.cost))){
-					sim.best_path= (LinkedList<IMap_node>)path.clone();
+					sim.best_path= (LinkedList<?>)path.clone();
 					sim.hit = true;
 					sim.best_cost = cost;
 				}
 			}else {
 				if((!(sim.hit))&&(sim.best_cost<(conf=this.Comfort()))) {
-					sim.best_path= (LinkedList<IMap_node>)path.clone();
+					sim.best_path= (LinkedList<?>)path.clone();
 					sim.hit = false;
 					sim.best_cost = conf;
 				}
@@ -206,11 +221,5 @@ public class Individual implements IIndividual {
 		this.death = death;
 	}
 
-	//para efeitos de teste
-	@Override
-	public LinkedList<IMap_node> GetPath() {
-		System.out.println("Path: "+path.toString());
-		return path; 
-	}
 
 }
