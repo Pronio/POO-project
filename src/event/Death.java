@@ -14,7 +14,7 @@ import simulation.IIndividual;
  * </ul>
  * @author Marta Marques (80882) 
  * @author Pedro Direita (81305)
- * @author José Heraldo (82414)
+ * @author Jose Fernandes (82414)
  */
 public class Death extends Event_Individual{
 	/**
@@ -28,6 +28,7 @@ public class Death extends Event_Individual{
 	} 
 	/**
 	 * Class Death constructor to be called at a given time in the simulation.
+	 * @param time Time in which the event will occur 
 	 * @param sim 
 	 * Simulation in which the event was created.
 	 * @param individual Individual that is going to execute the event.
@@ -51,6 +52,7 @@ public class Death extends Event_Individual{
 	/**
 	 * Redefinition of the method time() inherited from Event_Individual. Adds to the attribute time of the individual calling this method 
 	 * a new time defined by an exponential distribution of mean value (1 - log(1-comfort))*death_parameter.
+	 * @return double Returns a double representing the time of the next death event.
 	 */
 	public double time(){
 		double time = this.time;  

@@ -23,7 +23,7 @@ import map.SpecialCostZones;
  * </ul>
  * @author Marta Marques (80882) 
  * @author Pedro Direita (81305)
- * @author José Heraldo (82414)
+ * @author Jose Heraldo (82414)
  */
 public class SimHandler extends DefaultHandler {
 	

@@ -13,7 +13,7 @@ import simulation.ISimulation;
  * </ul>
  * @author Marta Marques (80882) 
  * @author Pedro Direita (81305)
- * @author José Heraldo (82414)
+ * @author Jose Fernandes (82414)
  */
 public class Move extends Event_Individual{
 	/**
@@ -26,6 +26,7 @@ public class Move extends Event_Individual{
 	}
 	/**
 	 * Class Move constructor to be called at a given time in the simulation.
+	 * @param time Time in which the event will occur.
 	 * @param sim 
 	 * Simulation in which the event was created.
 	 * @param individual Individual that is going to execute the event.
@@ -55,6 +56,7 @@ public class Move extends Event_Individual{
 	/**
 	 * Redefinition of the method time() inherited from Event_Individual. Adds to the attribute time of the individual calling this method 
 	 * a new time defined by an exponential distribution of mean value (1 - log(comfort))*move_parameter.
+	 * @return double Returns the corresponding time of the next move event.
 	 */
 	double time(){
 		double time = this.time;  

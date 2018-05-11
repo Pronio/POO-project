@@ -11,7 +11,7 @@ import simulation.ISimulation;
  * </ul>
  * @author Marta Marques (80882) 
  * @author Pedro Direita (81305)
- * @author José Heraldo (82414)
+ * @author Jose Fernandes (82414)
  */
 public class Observation extends Event_Simulation{
 		 
@@ -26,6 +26,7 @@ public class Observation extends Event_Simulation{
 	}	
 	/**
 	 * Class Observation constructor to be called at a given time in the simulation.
+	 * @param time Time in which the event will occur.
 	 * @param sim Simulation in which the event was created.
 	 */
 	public Observation(ISimulation sim, double time) {
