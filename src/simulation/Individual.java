@@ -220,7 +220,7 @@ public class Individual implements IIndividual {
 	
 	/**
 	 * Prints out if the individual is death or alive
-	 * @param String describing the individual
+	 * @return String describing the individual
 	 */
 	@Override
 	public String toString() {

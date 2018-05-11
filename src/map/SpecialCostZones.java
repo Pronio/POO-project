@@ -18,11 +18,11 @@ public final int xinitial, yinitial, xfinal, yfinal, cost;
 	
 	/**
 	 * Class SpecialCostZone constructor.
-	 * @param xinitial X coordinate of the initial point of the SCZ
-	 * @param yinitial Y coordinate of the initial point of the SCZ
-	 * @param xfinal X coordinate of the final point of the SCZ
-	 * @param yfinal Y coordinate of the final point of the SCZ
-	 * @param cost Cost of the SCZ
+	 * @param xi X coordinate of the initial point of the SCZ
+	 * @param yi Y coordinate of the initial point of the SCZ
+	 * @param xf X coordinate of the final point of the SCZ
+	 * @param yf Y coordinate of the final point of the SCZ
+	 * @param c Cost of the SCZ
 	 */
 	public 	SpecialCostZones(int xi, int yi, int xf, int yf, int c) {
 		xinitial = xi;

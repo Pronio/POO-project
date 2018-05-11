@@ -2,7 +2,7 @@ package pec;
 
 /**
  * Implements getTime method from IEvent interface 
- * & declares a double time variable,
+ * &amp; declares a double time variable,
  * representing the time-stamp.
  * The interface method execute() is declared as abstract
  * to be implemented by more specific events. 

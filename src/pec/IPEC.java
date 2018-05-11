@@ -15,7 +15,7 @@ public interface IPEC {
 	/**
 	 * Removes the event from the first position
 	 * from a PEC. This event has the lowest time-stamp value.
-	 * @return
+	 * @return event removed
 	 */
 	public IEvent Remove();
 }

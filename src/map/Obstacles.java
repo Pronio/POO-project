@@ -25,7 +25,7 @@ public class Obstacles {
 
 	/**
 	 * Show the coordinates of a certain obstacle.
-	 * @param String describing the obstacle.
+	 * @return String describing the obstacle.
 	 */
 	@Override
 	public String toString() {

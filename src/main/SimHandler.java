@@ -73,7 +73,6 @@ public class SimHandler extends DefaultHandler {
 	 * @param qName The qualified name (with prefix), or the empty string if qualified names are not available.
 	 * @param attr The attributes attached to the element. If there are no attributes, it shall be an empty Attributes object.
 	 * @throws SAXException Any SAX exception, possibly wrapping another exception.
-	 * @see {@linkplain DefaultHandler#startElement(String, String, String, Attributes) DefaultHandler startElement method}
 	 */
 	@Override
 	public void startElement(String uri, String localName, String qName, Attributes attr) throws SAXException { 

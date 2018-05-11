@@ -28,15 +28,16 @@ public class Main {
 	/**
 	 * This method receives a string as input that is the 
 	 * path to the XML file that will be simulated. This method uses the SAX parser in order to read said XML 
-	 * file. This method contains: 
+	 * file. This method contains:
+	 * <ul> 
 	 * <li>A Simulation object that is the simulation being executed; 
 	 * <li>A Map object that is created based on the XML input file and with the SAX parser; 
 	 * <li>A PEC (Pending Event Container) object that stores the events to be executed next; 
 	 * <li>A initial population value in order to initialize the simulation and create said population (individuals); 
 	 * <li>A auxiliary array of events to be added to the PEC in each iteration of the program.
-	 * 
+	 * </ul>
 	 * @param args Relative path of the XML input file.
-	 * @throws Exception
+	 * @throws Exception throws different types of exception according to the type of error found
 	 */
 	public static void main(String[] args) throws Exception{
 		
