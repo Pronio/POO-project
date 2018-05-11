@@ -27,6 +27,11 @@ public class Main {
 	    PEC pec = new PEC(); 
 	    int initpop = 0;
 	    
+	    if(args.length<1) {
+	    	System.err.println("XML file is not specified in the arguments");
+	    	System.exit(1);
+	    }
+	    
 	    try{
 	    	SAXParser saxParser = fact.newSAXParser();
 		    //Parse the XML document to this handler
